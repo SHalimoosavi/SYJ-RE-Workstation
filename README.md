@@ -198,7 +198,7 @@ This verifies only these four amd64 container images and the workflow's defined 
 - Signature verification errors are recorded as warnings and analysis continues.
 - Static inspection cannot establish that an APK is safe, malicious or exploitable.
 - Debian PRoot is a Linux userspace, not a virtual machine. It does not change the Android CPU architecture or provide a separate kernel, hardware virtualization, cgroups or every Android device interface.
-- CI checks shell syntax and linting; it does not run APK integration tests or validate every platform.
+- CI runs analyzer regression tests, Bash syntax checks and ShellCheck in the four named GitHub-hosted amd64 Debian/Ubuntu container images. It does not validate every platform; physical Android, Termux itself and Debian PRoot on Android are outside CI.
 - CI coverage is limited to the four named GitHub-hosted amd64 Debian/Ubuntu container images. Real Android Termux and Debian PRoot running on Android are not covered by CI and require separate device-side validation.
 
 ## Frequently asked questions
