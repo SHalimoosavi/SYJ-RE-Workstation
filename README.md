@@ -321,7 +321,7 @@ The tracked delivery plan is maintained in [GitHub milestones](https://github.co
 | Phase | Scope | Status |
 |---|---|---|
 | Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, local reports and report comparison | Implemented in repository; compatibility validation pending |
-| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | In progress; do not call verified until all matrix jobs pass |
+| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | Verified on Debian 12/13 and Ubuntu 22.04/24.04 amd64 containers in CI run #31; other architectures and Termux remain unverified |
 | Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
 | Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime analysis | Planned; not shipped and outside current static analyzer |
 
