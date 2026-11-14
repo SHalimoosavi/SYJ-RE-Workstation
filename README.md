@@ -64,7 +64,7 @@ Reports are created under the Debian user's home directory by default. In the Te
 
 ## How to analyze an APK in 5 steps
 
-The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The compatibility workflow runs on GitHub-hosted Debian/Ubuntu amd64 containers only. It does not provide broad Android-device, native Termux or cross-device Debian PRoot coverage. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. See the [tool compatibility matrix](docs/compatibility.md).
+The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The compatibility workflow runs on GitHub-hosted Debian/Ubuntu amd64 containers only. It does not provide broad Android-device, native Termux or cross-device Debian PRoot coverage. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. See the [tool compatibility matrix](docs/compatibility.md).
 
 1. **Install Termux packages and clone the project:**
    ```bash
