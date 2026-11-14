@@ -20,13 +20,14 @@ need() {
 need file
 need sha256sum
 need unzip
+need grep
 need aapt
 
 if ! unzip -tqq "$APK" >/dev/null 2>&1; then
   echo "ERROR: input is not a readable ZIP/APK archive: $APK" >&2
   exit 1
 fi
-if ! unzip -Z1 "$APK" | grep -qx 'AndroidManifest.xml'; then
+if ! unzip -Z1 "$APK" | grep -x 'AndroidManifest.xml' >/dev/null; then
   echo "ERROR: archive does not contain AndroidManifest.xml: $APK" >&2
   exit 1
 fi
