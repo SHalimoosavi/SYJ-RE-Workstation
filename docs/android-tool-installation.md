@@ -54,16 +54,16 @@ Upstream references: [JADX releases](https://github.com/skylot/jadx/releases/tag
 
 ## Compatibility matrix
 
-Status is populated from GitHub Actions runs on the compatibility workflow. Until a completed run exists for a release, its status remains **Untested**.
+The completed GitHub Actions compatibility run [#31](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43549803520) passed all four amd64 container jobs. Each job completed package installation, Debian bootstrap, disposable APK fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck.
 
-| Environment | Container image | Package installation | Bootstrap | APK integration | Overall |
+| Environment | Container image | Package installation | Bootstrap | APK integration and tests | Overall |
 |---|---|---|---|---|---|
-| Debian 12 Bookworm | `debian:12` | Untested | Untested | Untested | Untested |
-| Debian 13 Trixie | `debian:13` | Untested | Untested | Untested | Untested |
-| Ubuntu 22.04 Jammy | `ubuntu:22.04` | Untested | Untested | Untested | Untested |
-| Ubuntu 24.04 Noble | `ubuntu:24.04` | Untested | Untested | Untested | Untested |
+| Debian 12 Bookworm | `debian:12` | Passed | Passed | Passed | Passed |
+| Debian 13 Trixie | `debian:13` | Passed | Passed | Passed | Passed |
+| Ubuntu 22.04 Jammy | `ubuntu:22.04` | Passed | Passed | Passed | Passed |
+| Ubuntu 24.04 Noble | `ubuntu:24.04` | Passed | Passed | Passed | Passed |
 
-A successful workflow job will be reported as Passed only for the steps that actually ran successfully. A failed job will remain Failed until the failure is fixed and a rerun succeeds. Architecture and Termux/Android-device compatibility are not covered by these amd64 container tests.
+This verifies the listed x86_64 container images and the exact workflow steps above. It does not establish compatibility on other CPU architectures, Android devices, Termux installations or every Debian PRoot environment. The first matrix run failed due to a test assertion about an empty DEX inventory; that assertion was corrected, and run #31 is the successful rerun.
 
 ## Verify installed tools
 
