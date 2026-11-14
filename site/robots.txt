@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# Project-subpath robots.txt is informational only; crawlers use the domain-root robots.txt.
+Sitemap: https://shalimoosavi.github.io/SYJ-RE-Workstation/sitemap.xml
