@@ -11,9 +11,9 @@ Package-index information below was checked against the Debian and Ubuntu packag
 | Debian 12 Bookworm | `aapt` 1:10.0.0+r36-10 | `apksigner` 31.0.2-1 | `apktool` 2.7.0+dfsg-6+deb12u1 | Untested |
 | Debian 13 Trixie | `aapt` 1:14~beta1-3 | `apksigner` 35.0.2-1 | `apktool` 2.7.0+dfsg-7 | Untested |
 | Ubuntu 22.04 Jammy | `aapt` 1:10.0.0+r36-3 | `apksigner` 31.0.2-1 | `apktool` 2.5.0+dfsg.1-2build1 | Untested |
-| Ubuntu 24.04 Noble | `aapt` 1:14~beta1-2build3 | `apksigner` package listed in Universe; verify candidate with apt-cache | `apktool` 2.7.0+dfsg-7 | Untested |
+| Ubuntu 24.04 Noble | `aapt` 1:14~beta1-2build3 | `apksigner` 31.0.2-1ubuntu1 | `apktool` 2.7.0+dfsg-7 | Untested |
 
-The listed Ubuntu package versions are package-index references, not proof that your configured mirrors currently expose the same candidates. Enable the Universe component where required. Debian package details: [aapt](https://packages.debian.org/trixie/aapt), [apksigner](https://packages.debian.org/trixie/apksigner), [apktool](https://packages.debian.org/trixie/apktool). Ubuntu package details: [aapt](https://packages.ubuntu.com/aapt), [apktool](https://packages.ubuntu.com/apktool), and the [Jammy package index](https://packages.ubuntu.com/jammy/amd64/allpackages).
+The listed Ubuntu package versions are package-index references, not proof that your configured mirrors currently expose the same candidates. Enable the Universe component where required. Debian package details: [aapt](https://packages.debian.org/trixie/aapt), [apksigner](https://packages.debian.org/trixie/apksigner), [apktool](https://packages.debian.org/trixie/apktool). Ubuntu package details: [aapt](https://packages.ubuntu.com/aapt), [apksigner](https://packages.ubuntu.com/noble/apksigner), [apktool](https://packages.ubuntu.com/apktool), and the [Jammy package index](https://packages.ubuntu.com/jammy/amd64/allpackages).
 
 ## Inspect candidates before installing
 
