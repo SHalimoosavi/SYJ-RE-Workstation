@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "SYJ-RE-Workstation"
+abstract: "A Bash-based open-source workstation scaffold for static inspection of Android APK files on Debian, compatible Linux environments and Debian PRoot launched through Termux. It collects package metadata, permissions, manifest information, archive inventory, optional signature verification and optional JADX output."
+authors:
+  - family-names: Moosavi
+    given-names: "Syed Ali Hasan"
+    affiliation: "SAYANJALI NEXUS PRIVATE LIMITED"
+    email: "shalimoosavi@gmail.com"
+repository-code: "https://github.com/SHalimoosavi/SYJ-RE-Workstation"
+url: "https://github.com/SHalimoosavi/SYJ-RE-Workstation"
+license: MIT
+version: "0.1.0"
+keywords:
+  - Android
+  - APK analysis
+  - reverse engineering
+  - static analysis
+  - Debian
+  - Termux
+  - Bash
+  - Android security
