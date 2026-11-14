@@ -190,9 +190,13 @@ The JADX v1.5.6 release ZIP has no upstream SHA-256 checksum published with its 
 
 ## Read the evidence
 
-Start with `REPORT-INFO.txt`, `file.txt` and `sha256.txt`. Review `badging.txt`, `permissions.txt` and `manifest-tree.txt` for package and manifest evidence. Use `archive-files.txt` and `dex-and-native-libraries.txt` for archive inventory. If available, inspect `signature.txt`, `jadx-status.txt` and `jadx.log`.
+Start with `SUMMARY.md`, which is generated only from the raw evidence files in the same report directory. It links to those raw files and shows `not available` for missing or empty fields; it does not infer missing values. Keep the raw evidence files with the summary so reviewers can verify each observation.
 
-A successful run means the scripted collection steps completed; it does not mean the APK is safe. A non-zero JADX exit code is recorded separately and does not invalidate the other collected reports.
+`tool-versions.txt` records tool names and version tokens only: aapt, apksigner, JADX and Java. A missing tool or unavailable version is written as `unavailable`. It does not record usernames, home directories or executable paths.
+
+Then review `REPORT-INFO.txt`, `file.txt` and `sha256.txt`. Inspect `badging.txt`, `permissions.txt` and `manifest-tree.txt` for package and manifest evidence. Use `archive-files.txt` and `dex-and-native-libraries.txt` for archive inventory. If available, inspect `signature.txt`, `jadx-status.txt` and `jadx.log`.
+
+A successful run means the scripted collection steps completed; it does not mean the APK is safe. A skipped or failed signature/JADX step must be interpreted from its raw output and does not turn the report into a malware verdict.
 
 ## What ships today and what is planned
 
