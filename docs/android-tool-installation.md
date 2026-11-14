@@ -59,7 +59,7 @@ The completed GitHub Actions compatibility run [#31](https://github.com/SHalimoo
 | Ubuntu 22.04 Jammy | `ubuntu:22.04` | Passed | Passed | Passed | Passed |
 | Ubuntu 24.04 Noble | `ubuntu:24.04` | Passed | Passed | Passed | Passed |
 
-This verifies the listed x86_64 container images and the exact workflow steps above. It does not establish compatibility on other CPU architectures, Android devices, Termux installations or every Debian PRoot environment. The first matrix run failed due to a test assertion about an empty DEX inventory; that assertion was corrected, and run #31 is the successful rerun.
+These results come exclusively from GitHub-hosted Actions jobs running the listed x86_64 Debian/Ubuntu container images. The jobs do not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android. Therefore, CI does not verify real-device Termux compatibility or Debian PRoot compatibility; those require separate on-device testing. Other CPU architectures are also outside this matrix. The first matrix run failed due to a test assertion about an empty DEX inventory; that assertion was corrected, and run #31 is the successful rerun.
 
 ## Verify installed tools
 
@@ -78,4 +78,5 @@ java -version
 - apksigner and JADX are optional integrations.
 - APKTool is not currently called by the analyzer.
 - A successful static collection run is not a malware verdict and does not prove an APK safe.
-- CI container results do not prove compatibility on every CPU architecture, Android device, Termux version or PRoot configuration.
+- CI runs in GitHub-hosted Debian/Ubuntu container images only. It does not test physical Android devices, Termux itself, or Debian PRoot on Android.
+- Compatibility with real Android Termux and Debian PRoot must be validated separately on-device; neither is covered by the CI matrix.
