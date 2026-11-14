@@ -6,7 +6,7 @@ This page separates automated CI evidence from community-reported device tests. 
 
 ## Automated CI
 
-The compatibility workflow executes package installation, Debian bootstrap, disposable fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck in GitHub-hosted amd64 Debian/Ubuntu containers.
+The compatibility workflow executes package installation, Debian bootstrap, disposable fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck in GitHub-hosted amd64 Debian/Ubuntu containers. The table records the last completed matrix result; check the live workflow page for any newer run that is still pending or in progress.
 
 | Environment | Image | Architecture | Package setup | Analyzer tests | Shell checks | Result |
 |---|---|---|---|---|---|---|
