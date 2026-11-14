@@ -10,7 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Initial public release
 
-The first public release is intended to contain the complete feature set currently present on `main`:
+The first public release contains the feature set present on `main` at publication:
 
 - Bash-based APK static inspection and raw evidence files: `REPORT-INFO.txt`, `file.txt`, `size.txt`, `sha256.txt`, `badging.txt`, `permissions.txt`, `manifest-tree.txt`, `archive-files.txt`, `dex-and-native-libraries.txt`, `signature.txt` and `jadx-status.txt`.
 - Evidence-only `SUMMARY.md`, generated from raw report files, with missing or empty fields marked `not available`.
@@ -36,6 +36,6 @@ The first public release is intended to contain the complete feature set current
 - The compatibility workflow is linked above. It validates GitHub-hosted Debian/Ubuntu amd64 containers only; it does not validate physical Android devices, native Termux or Debian PRoot on Android.
 - Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
 - This is early-stage static evidence collection, not a malware verdict, vulnerability confirmation or proof that an APK is safe.
-- Release date: 2026-11-14. The tag and GitHub Release remain unpublished pending final publication authorization.
+- Published: [v0.1.0 on 2026-11-14](https://github.com/SHalimoosavi/SYJ-RE-Workstation/releases/tag/v0.1.0).
 
 [0.1.0]: https://github.com/SHalimoosavi/SYJ-RE-Workstation/releases/tag/v0.1.0
