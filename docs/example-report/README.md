@@ -18,6 +18,10 @@ The manifest and workflow instructions are original repository test material and
 
 JADX was not installed in this job, so decompilation was skipped. The fixture is unsigned, so the signature report correctly says it does not verify. An empty `dex-and-native-libraries.txt` is expected for this fixture.
 
+## Snapshot age
+
+This committed example snapshot predates the generated `SUMMARY.md` and `tool-versions.txt` additions. Fresh analyzer runs after those features are present create both files in each report directory. The values in the files below remain the original captured CI evidence; no new summary or tool-version values are fabricated for this historical snapshot.
+
 ## Files
 
 - `REPORT-INFO.txt`: input, output and scope metadata
