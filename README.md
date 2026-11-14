@@ -31,7 +31,31 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
   <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/commits/main"><img alt="Latest commit" src="https://img.shields.io/github/last-commit/SHalimoosavi/SYJ-RE-Workstation"></a>
 </p>
 
-<p align="center"><img src="docs/assets/terminal-demo.svg" alt="Illustrative terminal animation showing repository setup and an APK analysis command" width="100%"></p>
+## Two-minute first run
+
+The repository includes a tiny, original Android manifest fixture at [docs/sample-apk/AndroidManifest.xml](docs/sample-apk/AndroidManifest.xml). Build your own test APK locally with AAPT; no third-party application APK is redistributed. The fixture is for testing collection output only.
+
+**Debian or Ubuntu (fresh installation):** run these four commands in order.
+
+~~~bash
+sudo apt-get update && sudo apt-get install -y git aapt android-framework-res file unzip
+git clone https://github.com/SHalimoosavi/SYJ-RE-Workstation.git
+cd SYJ-RE-Workstation && aapt package -f -M docs/sample-apk/AndroidManifest.xml -I /usr/share/android-framework-res/framework-res.apk -F "$PWD/sample.apk"
+bash scripts/analyze-apk.sh "$PWD/sample.apk"
+~~~
+
+**Android with Termux and Debian PRoot (fresh installation):** run these four commands in Termux. The last command enters Debian and analyzes the locally generated fixture.
+
+~~~bash
+pkg update && pkg install -y git proot-distro
+git clone https://github.com/SHalimoosavi/SYJ-RE-Workstation.git && proot-distro install debian
+proot-distro login debian --bind "$HOME/SYJ-RE-Workstation:/mnt/syj-re" -- bash -lc 'apt-get update && apt-get install -y aapt android-framework-res file unzip && aapt package -f -M /mnt/syj-re/docs/sample-apk/AndroidManifest.xml -I /usr/share/android-framework-res/framework-res.apk -F /tmp/syj-re-sample.apk'
+proot-distro login debian --bind "$HOME/SYJ-RE-Workstation:/mnt/syj-re" -- bash /mnt/syj-re/scripts/analyze-apk.sh /tmp/syj-re-sample.apk
+~~~
+
+Reports are created under the Debian user's home directory by default. In the Termux workflow above, the report is inside Debian's home, not Termux's home.
+
+> **Scope:** static inspection only. This is not a malware sandbox or malware detector, and a report does not prove an APK is safe. Analyze only APKs you own or are authorized to assess.
 
 ## How to analyze an APK in 5 steps
 
@@ -145,7 +169,20 @@ It compares `badging.txt`, `permissions.txt`, `dex-and-native-libraries.txt` and
 
 ## Example output
 
-A sample report generated from the workflow-built minimal APK fixture is available in [docs/example-report/](docs/example-report/README.md). It records observed AAPT metadata, manifest, archive inventory, hash, unsigned signature result and skipped JADX status.
+The following excerpt is copied from the committed [real CI-generated fixture report](docs/example-report/). It is Debian 13 CI output, not invented terminal output:
+
+~~~text
+package: name='org.syj.reworkstation.fixture' versionCode='' versionName='' platformBuildVersionName='13.0.0' platformBuildVersionCode='33' compileSdkVersion='33' compileSdkVersionCodename='13.0.0'
+sdkVersion:'21'
+targetSdkVersion:'28'
+package: org.syj.reworkstation.fixture
+SHA-256: df27d4f8d03eda18808130a23632d85ea0f5a8733a2ecd5580e8f58a20f51220
+DOES NOT VERIFY
+ERROR: Missing META-INF/MANIFEST.MF
+jadx not installed; decompilation skipped.
+~~~
+
+The fixture has no declared permissions, no DEX or native-library payload, and an unsigned signature result. The raw report files and fixture provenance are available in [docs/example-report/](docs/example-report/README.md). This is static collection output, not a safety assessment.
 
 ## JADX archive integrity
 
