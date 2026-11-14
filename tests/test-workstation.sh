@@ -63,6 +63,10 @@ if grep -Eq '(/home/|/root/|/data/data/|/storage/emulated/)' "$REPORT/tool-versi
   fail 'tool-versions.txt contains a personal or home path'
 fi
 awk -F= 'NF != 2 || $1 !~ /^(aapt|apksigner|JADX|Java)$/ || ($2 != "unavailable" && $2 !~ /^[0-9][A-Za-z0-9.+_-]*$/) { exit 1 }' "$REPORT/tool-versions.txt" || fail 'tool-versions.txt contains fields other than tool names and version tokens'
+if [[ -n "${SYJ_TEST_REPORT_DIR:-}" ]]; then
+  mkdir -p "$SYJ_TEST_REPORT_DIR"
+  cp -a "$REPORT" "$SYJ_TEST_REPORT_DIR/"
+fi
 pass 'analyzer creates raw-evidence summary and sanitized tool versions'
 
 for sample_name in 'fixture with spaces.apk' 'fixture-مرحبا-应用.apk'; do
