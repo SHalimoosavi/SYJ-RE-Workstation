@@ -15,4 +15,4 @@ The [compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/
 
 The Debian bootstrap installs YARA and binutils, but the analyzer does not run YARA scans or inspect ELF/native binaries. APKTool is installed by the compatibility workflow for package/tool checks but is not invoked by the analyzer. DEX/native-library archive paths are listed; no DEX structural analysis is performed.
 
-The first public release target is v0.1.0 and has not yet been published. Release date will be added only after the project owner confirms the publication day.
+The first public release is v0.1.0, dated 2026-11-14. Tagging and publication remain pending.
