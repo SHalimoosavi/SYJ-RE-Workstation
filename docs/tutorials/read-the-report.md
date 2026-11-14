@@ -59,4 +59,4 @@ Preserve the raw evidence files when sharing a report so reviewers can verify th
 
 The project is early-stage and performs static evidence collection only. [![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg)](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml)
 
-CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. Termux and Debian PRoot on Android are not CI-tested and remain unverified until reproducible community reports are submitted and reviewed. APKTool integration, ELF/native inspection, DEX structural analysis, JSON/HTML report exports, YARA scanning and dynamic analysis are not implemented.
+CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. Termux and Debian PRoot on Android are not CI-tested. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. APKTool integration, ELF/native inspection, DEX structural analysis, JSON/HTML report exports, YARA scanning and dynamic analysis are not implemented.
