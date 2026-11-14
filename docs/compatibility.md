@@ -30,7 +30,7 @@ The following values are copied from the generated `tool-versions.txt` artifacts
 
 Each job generated a sanitized tool-version record. JADX was unavailable in these fixture jobs, so its version is recorded as `unavailable`. The compatibility workflow page links to current and historical runs and artifacts.
 
-**Boundary:** CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test a physical Android device, Termux itself, Debian PRoot on Android, ARM/ARM64 devices, or every package mirror and tool version. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
+**Boundary:** CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test a physical Android device, Termux itself, Debian PRoot on Android, ARM/ARM64 devices, or every package mirror and tool version. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet.
 
 ## Maintainer-reported results
 
