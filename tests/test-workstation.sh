@@ -45,7 +45,7 @@ REPORT="$SYJ_RE_HOME/reports/$(basename "$SYJ_TEST_APK" .apk)"
 for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt dex-and-native-libraries.txt signature.txt jadx-status.txt SUMMARY.md tool-versions.txt; do
   [[ -f "$REPORT/$output" ]] || fail "expected report output missing: $output"
 done
-for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt signature.txt jadx-status.txt; do
+for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt signature.txt jadx-status.txt SUMMARY.md tool-versions.txt; do
   [[ -s "$REPORT/$output" ]] || fail "expected report output is empty: $output"
 done
 if [[ -n "${SYJ_TEST_REPORT_DIR:-}" ]]; then
