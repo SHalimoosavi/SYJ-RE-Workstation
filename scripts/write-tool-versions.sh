@@ -22,7 +22,7 @@ version_for() {
       value=$(bash --version 2>&1 | awk 'NR == 1 { print $4; exit }')
       ;;
     file)
-      value=$(file --version 2>&1 | awk 'NR == 1 { print $1; exit }')
+      value=$(file --version 2>&1 | awk 'NR == 1 { sub(/^file-/, "", $1); print $1; exit }')
       ;;
     sha256sum)
       value=$(sha256sum --version 2>&1 | awk 'NR == 1 { print $NF; exit }')
@@ -44,8 +44,8 @@ version_for() {
       ;;
   esac
 
-  value=$(printf '%s' "$value" | tr -cd '[:alnum:]._+-')
-  [[ -n "$value" ]] || value="unavailable"
+  value=$(printf '%s' "$value" | tr -cd '[:alnum:].+-')
+  [[ "$value" =~ ^[0-9][[:alnum:].+-]*$ ]] || value="unavailable"
   printf '%s' "$value"
 }
 
