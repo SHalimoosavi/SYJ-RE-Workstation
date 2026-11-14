@@ -185,7 +185,7 @@ The completed GitHub Actions compatibility run [#31](https://github.com/SHalimoo
 | Ubuntu 22.04 Jammy | Passed | Passed | Passed | Passed |
 | Ubuntu 24.04 Noble | Passed | Passed | Passed | Passed |
 
-This verifies only these four amd64 container images and the workflow's defined steps; it does not prove Termux, Android-device, PRoot or other-architecture compatibility. The earlier failed run exposed and led to a correction of the empty DEX-inventory test assertion; run #31 is the successful rerun.
+This verifies only these four amd64 container images and the workflow's defined steps; it does not prove Termux, Android-device, PRoot or other-architecture compatibility. The earlier test assertion for an empty DEX inventory was corrected; the completed PR-head run [#90](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43551892781) passed all four matrix jobs.
 
 ## Known limitations
 
