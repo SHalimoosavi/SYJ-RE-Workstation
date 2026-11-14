@@ -31,7 +31,10 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
   <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml"><img alt="Compatibility workflow status" src="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg"></a>
   <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/shellcheck.yml"><img alt="Shell checks workflow status" src="https://img.shields.io/github/actions/workflow/status/SHalimoosavi/SYJ-RE-Workstation/shellcheck.yml?label=shell%20checks"></a>
   <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/commits/main"><img alt="Latest commit" src="https://img.shields.io/github/last-commit/SHalimoosavi/SYJ-RE-Workstation"></a>
+  <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/SHalimoosavi/SYJ-RE-Workstation?display_name=tag"></a>
 </p>
+
+[Latest release](https://github.com/SHalimoosavi/SYJ-RE-Workstation/releases/latest)
 
 ## Quick start
 
