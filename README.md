@@ -284,6 +284,8 @@ sequenceDiagram
 
 **Related documentation**
 - [Android tool installation and compatibility](docs/android-tool-installation.md)
+- [Compatibility matrix and community reports](docs/compatibility.md)
+- [Testing on Android](docs/testing-on-android.md)
 - [Architecture and environment boundaries](docs/architecture.md)
 - [Security and privacy guidance](docs/security-and-privacy.md)
 - [Troubleshooting](docs/troubleshooting.md)
