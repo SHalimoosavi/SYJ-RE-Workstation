@@ -295,6 +295,19 @@ Active is used only for SYJ Deploy because its 2026-10-17 commit was within roug
 
 GitHub Discussions are not listed because their availability for this repository has not been confirmed.
 
+## Roadmap
+
+The project is early-stage. Delivery status below describes current repository scope, not a promise that planned work is implemented.
+
+| Phase | Scope | Status |
+|---|---|---|
+| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, local reports and report comparison | Implemented in repository; compatibility validation pending |
+| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation, contributor workflow and reproducible example report | In progress; do not call verified until all matrix jobs pass |
+| Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
+| Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime-analysis project/workstream | Planned; not shipped and not part of current static analyzer |
+
+See [GitHub milestones](https://github.com/SHalimoosavi/SYJ-RE-Workstation/milestones) for tracked work. A milestone is a planning container; it does not imply completion.
+
 ## License
 
 SYJ-RE-Workstation is released under the [MIT License](LICENSE).
