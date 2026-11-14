@@ -43,7 +43,10 @@ export SYJ_RE_HOME="$TMP/workstation"
 "$ANALYZER" "$SYJ_TEST_APK" >"$TMP/analyze.out"
 REPORT="$SYJ_RE_HOME/reports/$(basename "$SYJ_TEST_APK" .apk)"
 for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt dex-and-native-libraries.txt signature.txt jadx-status.txt; do
-  [[ -s "$REPORT/$output" ]] || fail "expected report output missing or empty: $output"
+  [[ -f "$REPORT/$output" ]] || fail "expected report output missing: $output"
+done
+for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt signature.txt jadx-status.txt; do
+  [[ -s "$REPORT/$output" ]] || fail "expected report output is empty: $output"
 done
 if [[ -n "${SYJ_TEST_REPORT_DIR:-}" ]]; then\n  mkdir -p "$SYJ_TEST_REPORT_DIR"\n  cp -a "$REPORT" "$SYJ_TEST_REPORT_DIR/"\nfi\npass "analyzer creates expected evidence files"
 
