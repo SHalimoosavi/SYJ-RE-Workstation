@@ -54,14 +54,14 @@ Upstream references: [JADX releases](https://github.com/skylot/jadx/releases/tag
 
 ## Compatibility matrix
 
-Status is populated from GitHub Actions runs on the compatibility workflow. Until a completed run exists for a release, its status remains **Untested**.
+Status is populated from GitHub Actions runs on the compatibility workflow. The status reflects compatibility workflow run [#6](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43548949633). Package installation, bootstrap and fixture build passed on all four images. The analyzer regression suite failed on all four because the fixture correctly contained no DEX/native-library entries, while the test incorrectly required the DEX inventory report to be non-empty. That assertion has since been corrected to accept an empty inventory file, but the corrected test has not yet run to completion in a fresh matrix. Overall compatibility remains Failed / not verified.
 
 | Environment | Container image | Package installation | Bootstrap | APK integration | Overall |
 |---|---|---|---|---|---|
-| Debian 12 Bookworm | `debian:12` | Untested | Untested | Untested | Untested |
-| Debian 13 Trixie | `debian:13` | Untested | Untested | Untested | Untested |
-| Ubuntu 22.04 Jammy | `ubuntu:22.04` | Untested | Untested | Untested | Untested |
-| Ubuntu 24.04 Noble | `ubuntu:24.04` | Untested | Untested | Untested | Untested |
+| Debian 12 Bookworm | `debian:12` | Passed (run 6) | Passed (run 6) | Failed: empty DEX inventory assertion | Failed |
+| Debian 13 Trixie | `debian:13` | Passed (run 6) | Passed (run 6) | Failed: empty DEX inventory assertion | Failed |
+| Ubuntu 22.04 Jammy | `ubuntu:22.04` | Passed (run 6) | Passed (run 6) | Failed: empty DEX inventory assertion | Failed |
+| Ubuntu 24.04 Noble | `ubuntu:24.04` | Passed (run 6) | Passed (run 6) | Failed: empty DEX inventory assertion | Failed |
 
 A successful workflow job will be reported as Passed only for the steps that actually ran successfully. A failed job will remain Failed until the failure is fixed and a rerun succeeds. Architecture and Termux/Android-device compatibility are not covered by these amd64 container tests.
 
