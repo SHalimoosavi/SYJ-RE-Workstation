@@ -4,19 +4,36 @@ All notable changes to SYJ-RE-Workstation are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow Semantic Versioning.
 
-## [0.1.0] - 2026-11-14
+[![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg)](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml)
 
-### Added
-- Initial Bash-based APK static inspection workflow.
-- APK metadata, permission, manifest, archive inventory and SHA-256 report collection.
-- Optional apksigner verification and JADX decompilation.
-- Report comparison helper.
+## [0.1.0] - Unreleased
+
+### Initial public release
+
+The first public release is intended to contain the complete feature set currently present on `main`:
+
+- Bash-based APK static inspection and raw evidence files: `REPORT-INFO.txt`, `file.txt`, `size.txt`, `sha256.txt`, `badging.txt`, `permissions.txt`, `manifest-tree.txt`, `archive-files.txt`, `dex-and-native-libraries.txt`, `signature.txt` and `jadx-status.txt`.
+- Evidence-only `SUMMARY.md`, generated from raw report files, with missing or empty fields marked `not available`.
+- Sanitized `tool-versions.txt` containing tool names and version tokens rather than executable paths or personal paths.
+- Report comparison helper for badging, permissions, DEX/native-library path inventory and signature output.
+- Optional `apksigner` signature verification and optional JADX decompilation when those tools are installed.
 - Termux and Debian bootstrap scripts.
-- Shell syntax and ShellCheck GitHub Actions workflow.
-- Architecture, security, troubleshooting and installation documentation.
+- Analyzer regression tests, Bash syntax checks and ShellCheck.
+- Four-image GitHub Actions compatibility matrix: Debian 12, Debian 13, Ubuntu 22.04 and Ubuntu 24.04, all in GitHub-hosted amd64 containers.
+- Static project website, installation and usage pages, compatibility information, tutorials, security guidance, contributor documentation and roadmap.
 
-### Notes
-- This is an early prototype release record, not a claim of broad platform validation.
-- GitHub Actions compatibility run [#84](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43550686140) passed package installation, bootstrap, fixture generation, analyzer tests, artifact upload, Bash syntax checks and ShellCheck on Debian 12, Debian 13, Ubuntu 22.04 and Ubuntu 24.04 (amd64 containers).
-- These results are from GitHub-hosted Debian/Ubuntu amd64 container images only. CI does not cover physical Android devices, real Termux installations, or Debian PRoot on Android; those require separate on-device validation. Other CPU architectures, dynamic analysis and any safety/malware verdict are also outside this CI result.
-- The repository remains early-stage. The Debian bootstrap installs YARA and binutils, but the analyzer does not use YARA or inspect ELF/native binaries. APKTool is installed in CI for package/tool checks but is not invoked by the analyzer. The JADX v1.5.6 release ZIP has no upstream SHA-256 checksum; the README documents manual verification limits. This is a changelog record, not a statement that a GitHub Release or tag was published.
+### Not included
+
+- APKTool integration (the analyzer does not invoke APKTool).
+- ELF/native binary inspection.
+- DEX structural analysis (the analyzer lists DEX paths only).
+- JSON or HTML report exports.
+- YARA scanning (YARA may be installed by the bootstrap, but the analyzer does not run scans).
+- Dynamic analysis or APK execution.
+
+### Validation and limitations
+
+- The compatibility workflow is linked above. It validates GitHub-hosted Debian/Ubuntu amd64 containers only; it does not validate physical Android devices, native Termux or Debian PRoot on Android.
+- Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
+- This is early-stage static evidence collection, not a malware verdict, vulnerability confirmation or proof that an APK is safe.
+- The release date is intentionally omitted until the project owner confirms the publication day. No tag or GitHub Release has been created by this documentation change.
