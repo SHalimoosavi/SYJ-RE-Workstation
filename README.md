@@ -35,7 +35,7 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 
 ## How to analyze an APK in 5 steps
 
-The commands below are the documented workflow. They have not been tested across all four requested distribution releases; see the [tool compatibility matrix](docs/android-tool-installation.md).
+The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The Debian 12/13 and Ubuntu 22.04/24.04 package installation tests remain unverified; see the [tool compatibility matrix](docs/android-tool-installation.md).
 
 1. **Install Termux packages and clone the project:**
    ```bash
