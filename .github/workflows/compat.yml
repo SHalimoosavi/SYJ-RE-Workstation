@@ -1,0 +1,80 @@
+name: Compatibility matrix
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  compatibility:
+    name: ${{ matrix.label }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: debian:12
+            artifact: debian-12
+            label: Debian 12 Bookworm
+          - image: debian:13
+            artifact: debian-13
+            label: Debian 13 Trixie
+          - image: ubuntu:22.04
+            artifact: ubuntu-22-04
+            label: Ubuntu 22.04 Jammy
+          - image: ubuntu:24.04
+            artifact: ubuntu-24-04
+            label: Ubuntu 24.04 Noble
+    container:
+      image: ${{ matrix.image }}
+    steps:
+      - name: Install Git and checkout prerequisites
+        run: |
+          apt-get update
+          apt-get install -y ca-certificates git
+      - uses: actions/checkout@v4
+      - name: Install analyzer and Android tools
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          apt-cache policy aapt apksigner apktool default-jre-headless
+          apt-get install -y bash ca-certificates file unzip zip coreutils grep \
+            aapt apksigner apktool default-jre-headless android-framework-res
+          java -version
+          aapt version
+          apksigner version
+          apktool --version
+      - name: Run Debian bootstrap
+        run: bash scripts/debian-bootstrap.sh
+      - name: Build disposable APK fixture
+        run: |
+          mkdir -p "$RUNNER_TEMP/apk-fixture"
+          cat > "$RUNNER_TEMP/apk-fixture/AndroidManifest.xml" <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+              package="org.syj.reworkstation.fixture">
+              <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
+              <application android:label="SYJ CI Fixture" android:hasCode="false" />
+          </manifest>
+          EOF
+          aapt package -f -M "$RUNNER_TEMP/apk-fixture/AndroidManifest.xml" \
+            -I /usr/share/android-framework-res/framework-res.apk \
+            -F "$RUNNER_TEMP/syj-ci-fixture.apk"
+          test -s "$RUNNER_TEMP/syj-ci-fixture.apk"
+          aapt dump badging "$RUNNER_TEMP/syj-ci-fixture.apk"
+      - name: Run analyzer regression tests
+        env:
+          SYJ_TEST_APK: ${{ runner.temp }}/syj-ci-fixture.apk
+          SYJ_TEST_REPORT_DIR: ${{ runner.temp }}/generated-report
+        run: bash tests/test-workstation.sh
+      - name: Upload generated example report
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-report-${{ matrix.artifact }}
+          path: ${{ runner.temp }}/generated-report/
+          if-no-files-found: error
+      - name: Shell syntax checks
+        run: bash -n scripts/*.sh tests/*.sh
+      - name: ShellCheck
+        run: |
+          apt-get install -y shellcheck
+          shellcheck scripts/*.sh tests/*.sh
