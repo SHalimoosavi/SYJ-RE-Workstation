@@ -17,6 +17,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Notes
 - This is an early prototype release record, not a claim of broad platform validation.
-- GitHub Actions compatibility run [#31](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43549803520) passed package installation, bootstrap, fixture generation, analyzer tests, artifact upload, Bash syntax checks and ShellCheck on Debian 12, Debian 13, Ubuntu 22.04 and Ubuntu 24.04 (amd64 containers).
+- GitHub Actions compatibility run [#84](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43550686140) passed package installation, bootstrap, fixture generation, analyzer tests, artifact upload, Bash syntax checks and ShellCheck on Debian 12, Debian 13, Ubuntu 22.04 and Ubuntu 24.04 (amd64 containers).
 - These results are from GitHub-hosted Debian/Ubuntu amd64 container images only. CI does not cover physical Android devices, real Termux installations, or Debian PRoot on Android; those require separate on-device validation. Other CPU architectures, dynamic analysis and any safety/malware verdict are also outside this CI result.
-- The repository remains early-stage. This changelog entry is not itself a published GitHub Release or tag.
+- The repository remains early-stage. The Debian bootstrap installs YARA and binutils, but the analyzer does not use YARA or inspect ELF/native binaries. APKTool is installed in CI for package/tool checks but is not invoked by the analyzer. The JADX v1.5.6 release ZIP has no upstream SHA-256 checksum; the README documents manual verification limits. This is a changelog record, not a statement that a GitHub Release or tag was published.
