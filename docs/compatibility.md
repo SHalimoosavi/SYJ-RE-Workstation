@@ -40,7 +40,7 @@ The following is one maintainer-reported device data point. It is not an indepen
 |---|---|---|---|---|---|---|---|---|
 | Termux + Debian 13 PRoot on Android | not recorded | not recorded | not recorded | Debian 13 Trixie; v0.1.0 | not recorded | `tests/test-workstation.sh`: passed (14 tests); `analyze-apk.sh`: completed on two real APKs; optional JADX stage: failed (exit code 3) | 2026-11-14 | Maintainer-reported; one device; not independently verified |
 
-`tool-versions.txt` contents: not recorded. The optional JADX failure is recorded as a tool-stage failure; it does not change the fact that the analyzer completed its collection run. No client APK names, identifiers, signing details, findings or report contents are included.
+`tool-versions.txt` contents: not recorded. The optional JADX failure is recorded as a tool-stage failure; it does not change the fact that the analyzer completed its collection run.
 
 ## Community-reported results
 
