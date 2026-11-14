@@ -50,19 +50,16 @@ Example installation for the upstream v1.5.6 release:
 
 ```bash
 sudo apt-get install -y ca-certificates curl unzip openjdk-21-jre-headless
-mkdir -p "$HOME/opt/jadx" "$HOME/.cache/jadx"
+mkdir -p "$HOME/opt/jadx/1.5.6" "$HOME/.cache/jadx"
 cd "$HOME/.cache/jadx"
 curl -fL --proto '=https' --tlsv1.2 -o jadx-1.5.6.zip https://github.com/skylot/jadx/releases/download/v1.5.6/jadx-1.5.6.zip
-unzip -q jadx-1.5.6.zip -d "$HOME/opt/jadx"
+unzip -q jadx-1.5.6.zip -d "$HOME/opt/jadx/1.5.6"
+JADX_BIN="$(find "$HOME/opt/jadx/1.5.6" -type f -name jadx -print -quit)"
+test -n "$JADX_BIN"
+export PATH="$(dirname "$JADX_BIN"):$PATH"
 ```
 
-Add the extracted `bin` directory to PATH (the archive extracts a versioned directory; inspect it first):
-
-```bash
-find "$HOME/opt/jadx" -maxdepth 3 -type f -name jadx -print
-```
-
-Then add the actual containing `bin` directory to your shell PATH. Verify:
+The `export` applies to the current shell. Add the containing `bin` directory to your shell startup file if you want it on PATH in future sessions. Verify:
 
 ```bash
 jadx --version
@@ -70,7 +67,16 @@ jadx --version
 
 ### Integrity verification note
 
-The upstream v1.5.6 release page shows a verified signed Git tag and commit (GPG key ID `47A4975761262B6A`). The release page does not expose a published SHA-256 checksum or signature for the `jadx-1.5.6.zip` asset. Therefore, a locally computed `sha256sum` is useful for recording the downloaded file but does **not** independently authenticate it. Verify the signed tag through Git if you have independently obtained and trusted the upstream signing key; do not describe the archive itself as checksum-verified unless upstream publishes a matching checksum/signature.
+The upstream v1.5.6 release page shows a verified signed Git tag and commit (GPG key ID `47A4975761262B6A`). The release page does not expose a published SHA-256 checksum or signature for the `jadx-1.5.6.zip` asset. Therefore, a locally computed `sha256sum jadx-1.5.6.zip` is useful for recording the downloaded file but does **not** independently authenticate it. If you have independently obtained and trusted the upstream signing key, you can verify the signed tag separately:
+
+```bash
+git clone --filter=blob:none --no-checkout https://github.com/skylot/jadx.git jadx-upstream
+cd jadx-upstream
+git fetch --tags
+git verify-tag v1.5.6
+```
+
+This authenticates the signed source tag against your local GPG trust configuration; it does not prove the downloaded ZIP asset is byte-for-byte built from that tag. Do not describe the archive itself as checksum-verified unless upstream publishes a matching checksum/signature.
 
 ## Test status for this repository
 
