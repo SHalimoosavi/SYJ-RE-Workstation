@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/syj-re-workstation-social-preview.svg" alt="SYJ-RE-Workstation banner showing hex inspection, decompiled source, terminal analysis and connected analysis modules" width="100%">
+  <img src="docs/assets/syj-re-workstation-social-preview.png" alt="SYJ-RE-Workstation banner showing hex inspection, decompiled source, terminal analysis and connected analysis modules" width="100%">
 </p>
 
 # SYJ-RE-Workstation
@@ -166,6 +166,19 @@ A successful run means the scripted collection steps completed; it does not mean
 - Additional report formats and integrated analysis modules.
 - Broader cross-distribution and device validation.
 
+## Compatibility validation
+
+The first completed four-image CI run installed the analysis packages, completed the Debian bootstrap and built the disposable APK fixture on all four releases. The analyzer regression job then failed on all four because the fixture has no DEX/native-library entries and the test incorrectly required that report file to be non-empty. The test assertion has since been corrected to accept an empty inventory file, but that correction has not yet been validated by another completed matrix run. **No release is currently marked compatible or verified.**
+
+| Environment | Package install | Bootstrap | Analyzer tests | Overall |
+|---|---|---|---|---|
+| Debian 12 Bookworm | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+| Debian 13 Trixie | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+| Ubuntu 22.04 Jammy | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+| Ubuntu 24.04 Noble | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+
+[Compatibility workflow run #6](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43548949633). The corrected test and report-artifact upload still require a fresh completed matrix run.
+
 ## Known limitations
 
 - The repository is an early prototype. Cross-device and cross-distribution validation is incomplete.
@@ -294,6 +307,19 @@ Active is used only for SYJ Deploy because its 2026-10-17 commit was within roug
 - Report bugs and request features through [GitHub Issues](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues).
 
 GitHub Discussions are not listed because their availability for this repository has not been confirmed.
+
+## Roadmap
+
+See the [GitHub milestones page](https://github.com/SHalimoosavi/SYJ-RE-Workstation/milestones) as milestones are configured; the current work items are tracked in [GitHub issues](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues). The current focus is a verified static-analysis foundation: compatibility testing, regression tests and accurate installation documentation. APKTool integration, ELF/native inspection, DEX analysis, additional report formats and dynamic analysis are later, separate workstreams. Planned work is not shipped functionality.
+
+## Roadmap status
+
+| Phase | Scope | Status |
+|---|---|---|
+| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, local reports and report comparison | Implemented in repository; compatibility validation pending |
+| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | In progress; do not call verified until all matrix jobs pass |
+| Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
+| Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime analysis | Planned; not shipped and outside current static analyzer |
 
 ## License
 
