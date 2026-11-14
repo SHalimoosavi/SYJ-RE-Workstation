@@ -1,6 +1,6 @@
 # Contributing
 
-1. Open a GitHub issue describing the problem or proposed feature.
+1. Open a GitHub issue for a bug or a concrete change proposal. Use [GitHub Discussions](https://github.com/SHalimoosavi/SYJ-RE-Workstation/discussions) for usage questions and ideas.
 2. Create a focused branch from `main`.
 3. Keep changes small, reproducible and scoped to the documented project capabilities.
 4. Run `bash -n scripts/*.sh` and ShellCheck on changed shell scripts.
@@ -8,4 +8,4 @@
 6. Include tool versions and sanitized logs when reporting compatibility issues.
 7. Do not include APKs, credentials, generated reports, certificates, signing keys or proprietary application source.
 
-Contributions should preserve the project's static-analysis-first and privacy-by-default approach. Do not describe untested platforms as supported or present static output as a malware verdict.
+For vulnerabilities, follow [SECURITY.md](SECURITY.md) and do not disclose them publicly. Contributions should preserve the project's static-analysis-first and privacy-by-default approach. Do not describe untested platforms as supported or present static output as a malware verdict.

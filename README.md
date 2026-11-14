@@ -360,7 +360,7 @@ Active is used only for SYJ Deploy because its 2026-10-17 commit was within roug
 - Project contact: [shalimoosavi@gmail.com](mailto:shalimoosavi@gmail.com)
 - Report bugs and request features through [GitHub Issues](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues).
 
-GitHub Discussions are not listed because their availability for this repository has not been confirmed.
+- Questions and community: [GitHub Discussions](https://github.com/SHalimoosavi/SYJ-RE-Workstation/discussions) for usage questions and ideas; [GitHub Issues](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues) for bugs; [SECURITY.md](SECURITY.md) for vulnerability reporting.
 
 ## Roadmap
 

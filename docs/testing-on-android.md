@@ -72,7 +72,7 @@ git -C /mnt/syj-re rev-parse HEAD
 
 ## 5. Submit a report
 
-Open the [Environment test report issue form](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues/new?template=environment-test-report.yml). Include:
+For setup questions, device-specific discussion and test coordination, use [GitHub Discussions](https://github.com/SHalimoosavi/SYJ-RE-Workstation/discussions). Submit reproducible results through the [Environment test report issue form](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues/new?template=environment-test-report.yml). Include:
 
 - Environment type: Termux + Debian PRoot on Android.
 - Device model, Android release and CPU architecture.
