@@ -61,7 +61,7 @@ The compatibility workflow runs package installation, Debian bootstrap, disposab
 | Ubuntu 22.04 Jammy | `ubuntu:22.04` | Passed | Passed | Passed | Passed |
 | Ubuntu 24.04 Noble | `ubuntu:24.04` | Passed | Passed | Passed | Passed |
 
-**Boundary:** CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed. Other CPU architectures are also outside this matrix.
+**Boundary:** CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. Other CPU architectures are also outside this matrix.
 
 ## Verify installed tools
 
