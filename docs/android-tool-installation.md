@@ -4,7 +4,7 @@ This guide distinguishes distribution package metadata from tests executed by th
 
 ## Runtime requirements
 
-The current analyzer requires Bash, `file`, `sha256sum`, `unzip` and AAPT (`aapt`). Signature verification with `apksigner` and DEX decompilation with JADX are optional. APKTool is currently a separately installed/manual utility; no shipped script invokes it.
+The current analyzer requires Bash, `file`, `sha256sum`, `unzip` and AAPT (`aapt`). Signature verification with `apksigner` and DEX decompilation with JADX are optional. APKTool is installed in the compatibility workflow for package/tool checks, but no analyzer script invokes it. The Debian bootstrap installs YARA and binutils; the analyzer does not run YARA scans or parse/inspect ELF binaries yet.
 
 JADX **v1.5.6** requires a 64-bit Java runtime **11 or newer** according to the upstream project documentation. Install the distribution's `default-jre-headless` metapackage rather than hard-coding Java 21: it resolves to the default supported runtime for each release.
 
@@ -50,7 +50,7 @@ Upstream references: [JADX releases](https://github.com/skylot/jadx/releases/tag
 
 ## Compatibility matrix
 
-The completed GitHub Actions compatibility run [#31](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43549803520) passed all four amd64 container jobs. Each job completed package installation, Debian bootstrap, disposable APK fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck.
+The completed GitHub Actions compatibility run [#84](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43550686140) passed all four amd64 container jobs. Each job completed package installation, Debian bootstrap, disposable APK fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck.
 
 | Environment | Container image | Package installation | Bootstrap | APK integration and tests | Overall |
 |---|---|---|---|---|---|
@@ -59,7 +59,7 @@ The completed GitHub Actions compatibility run [#31](https://github.com/SHalimoo
 | Ubuntu 22.04 Jammy | `ubuntu:22.04` | Passed | Passed | Passed | Passed |
 | Ubuntu 24.04 Noble | `ubuntu:24.04` | Passed | Passed | Passed | Passed |
 
-These results come exclusively from GitHub-hosted Actions jobs running the listed x86_64 Debian/Ubuntu container images. The jobs do not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android. Therefore, CI does not verify real-device Termux compatibility or Debian PRoot compatibility; those require separate on-device testing. Other CPU architectures are also outside this matrix. The first matrix run failed due to a test assertion about an empty DEX inventory; that assertion was corrected, and run #31 is the successful rerun.
+These results come exclusively from GitHub-hosted Actions jobs running the listed x86_64 Debian/Ubuntu container images. CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android. Real-device Termux and Debian PRoot compatibility, and other CPU architectures, remain outside this matrix. Run #84 is the successful completed matrix for this branch; it does not establish device-side compatibility.
 
 ## Verify installed tools
 
@@ -76,7 +76,9 @@ java -version
 
 - AAPT is required by `scripts/analyze-apk.sh`.
 - apksigner and JADX are optional integrations.
-- APKTool is not currently called by the analyzer.
+- APKTool is installed in CI for package/tool checks but is not called by the analyzer.
+- YARA is installed by the Debian bootstrap but is not used by the analyzer; no YARA scan or ruleset is run.
+- binutils is installed by the Debian bootstrap, but no ELF/native binary parser or inspection pipeline is implemented.
 - A successful static collection run is not a malware verdict and does not prove an APK safe.
 - CI runs in GitHub-hosted Debian/Ubuntu container images only. It does not test physical Android devices, Termux itself, or Debian PRoot on Android.
 - Compatibility with real Android Termux and Debian PRoot must be validated separately on-device; neither is covered by the CI matrix.
