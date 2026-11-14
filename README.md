@@ -282,9 +282,9 @@ Status is based on each repository's latest commit date available during this do
 | [SYJ LLM](https://github.com/SHalimoosavi/SYJ-LLM) | C++17 local LLM runtime, GGUF registry and localhost API foundation | Prototype | 2026-09-20 |
 | [SAYANJALI BLOCKCHAIN](https://github.com/SHalimoosavi/SAYANJALI-BLOCKCHAIN) | Layer-1 blockchain implementation and protocol research | Early | 2026-10-02 |
 | [SYJ LaunchPad](https://github.com/SHalimoosavi/SYJ-LaunchPad) | Self-hosted Web3 token launchpad foundation | Early | 2026-09-27 |
-| [SYJ Deploy](https://github.com/SHalimoosavi/SYJ-DEPLOY) | Self-hosted Git-based deployment dashboard | Prototype | 2026-10-17 |
+| [SYJ Deploy](https://github.com/SHalimoosavi/SYJ-DEPLOY) | Self-hosted Git-based deployment dashboard; README identifies a v1.1.0-beta hardening release | Active | 2026-10-17 |
 
-No repository in this table is labelled Active: the latest commits found for these six projects were not recent enough to support that status at the time of review.
+Active is used only for SYJ Deploy because its 2026-10-17 commit was within roughly 30 days of this review and its README describes a v1.1.0-beta hardening release. The other five are marked Prototype or Early because their latest commits were older; these labels describe repository activity/maturity for this table, not product quality.
 
 ### Contact and project support
 
