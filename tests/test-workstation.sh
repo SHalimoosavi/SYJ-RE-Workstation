@@ -48,7 +48,11 @@ done
 for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt signature.txt jadx-status.txt; do
   [[ -s "$REPORT/$output" ]] || fail "expected report output is empty: $output"
 done
-if [[ -n "${SYJ_TEST_REPORT_DIR:-}" ]]; then\n  mkdir -p "$SYJ_TEST_REPORT_DIR"\n  cp -a "$REPORT" "$SYJ_TEST_REPORT_DIR/"\nfi\npass "analyzer creates expected evidence files"
+if [[ -n "${SYJ_TEST_REPORT_DIR:-}" ]]; then
+  mkdir -p "$SYJ_TEST_REPORT_DIR"
+  cp -a "$REPORT" "$SYJ_TEST_REPORT_DIR/"
+fi
+pass "analyzer creates expected evidence files"
 
 mkdir -p "$TMP/report-a" "$TMP/report-b"
 for f in badging.txt permissions.txt dex-and-native-libraries.txt signature.txt; do
