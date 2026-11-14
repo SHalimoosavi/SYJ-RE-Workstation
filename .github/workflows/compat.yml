@@ -45,7 +45,6 @@ jobs:
           java -version
           aapt version
           apksigner version
-          apktool --version
       - name: Run Debian bootstrap
         run: bash scripts/debian-bootstrap.sh
       - name: Build documented sample APK fixture
