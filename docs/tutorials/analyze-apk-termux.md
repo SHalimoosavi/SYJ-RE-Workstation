@@ -1,6 +1,6 @@
 # Analyze an APK using Termux and Debian PRoot
 
-**Device compatibility is unverified.** The repository's GitHub Actions compatibility workflow runs only in GitHub-hosted Debian/Ubuntu amd64 containers. It does not execute on Android, inside Termux, or inside Debian PRoot running on Android. Treat this tutorial as provisional until reproducible community device reports are submitted and reviewed.
+**Device compatibility is supported by one limited maintainer report only.** Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. The repository's GitHub Actions compatibility workflow runs only in GitHub-hosted Debian/Ubuntu amd64 containers and does not execute on Android, inside Termux, or inside Debian PRoot running on Android. Treat this tutorial as provisional; one device report does not establish broad compatibility.
 
 [![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg)](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml)
 
@@ -64,4 +64,4 @@ Do not report success unless you completed the steps on a physical Android devic
 
 ## Limitations
 
-This is static evidence collection only. It does not execute APKs, provide a malware verdict, confirm vulnerabilities or prove an APK is safe. APKTool integration, YARA scanning, ELF/native inspection, DEX structural analysis, JSON/HTML exports and dynamic analysis are not implemented analyzer features. Termux and Debian PRoot results remain unverified until reproducible community reports are received and reviewed.
+This is static evidence collection only. It does not execute APKs, provide a malware verdict, confirm vulnerabilities or prove an APK is safe. APKTool integration, YARA scanning, ELF/native inspection, DEX structural analysis, JSON/HTML exports and dynamic analysis are not implemented analyzer features. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet.

@@ -46,4 +46,4 @@ The analyzer writes a report beneath the workstation's reports directory. It inc
 
 [![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg)](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml)
 
-CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test physical Android devices, Termux itself or Debian PRoot on Android. Termux and Debian PRoot remain unverified until reproducible community reports are submitted and reviewed. APKTool integration, ELF/native inspection, DEX structural analysis, YARA scanning, JSON/HTML exports and dynamic analysis are not implemented in this release.
+CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test physical Android devices, Termux itself or Debian PRoot on Android. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. APKTool integration, ELF/native inspection, DEX structural analysis, YARA scanning, JSON/HTML exports and dynamic analysis are not implemented in this release.

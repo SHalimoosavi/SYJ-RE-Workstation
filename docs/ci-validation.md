@@ -8,4 +8,4 @@ The workflow installs AAPT, apksigner, APKTool and the distribution's `default-j
 
 Compatibility status is based only on completed GitHub Actions jobs. A queued or in-progress job is not a pass. Container results cover the four listed x86_64 images only; they do not validate Termux, Android devices or other architectures.
 
-CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
+CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet.

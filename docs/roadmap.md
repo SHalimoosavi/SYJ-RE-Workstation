@@ -11,7 +11,7 @@ This project is an early-stage Bash-based static APK inspection workstation. The
 | Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX structural analysis and JSON/HTML report exports | Planned; not shipped |
 | Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime-analysis effort | Planned; not shipped and outside the current static analyzer |
 
-The [compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml) is the stable source for current automated CI runs. CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test physical Android devices, Termux itself, or Debian PRoot on Android. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
+The [compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml) is the stable source for current automated CI runs. CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test physical Android devices, Termux itself, or Debian PRoot on Android. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet.
 
 The Debian bootstrap installs YARA and binutils, but the analyzer does not run YARA scans or inspect ELF/native binaries. APKTool is installed by the compatibility workflow for package/tool checks but is not invoked by the analyzer. DEX/native-library archive paths are listed; no DEX structural analysis is performed.
 
