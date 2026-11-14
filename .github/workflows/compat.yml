@@ -14,12 +14,16 @@ jobs:
       matrix:
         include:
           - image: debian:12
+            artifact: debian-12
             label: Debian 12 Bookworm
           - image: debian:13
+            artifact: debian-13
             label: Debian 13 Trixie
           - image: ubuntu:22.04
+            artifact: ubuntu-22-04
             label: Ubuntu 22.04 Jammy
           - image: ubuntu:24.04
+            artifact: ubuntu-24-04
             label: Ubuntu 24.04 Noble
     container:
       image: ${{ matrix.image }}
@@ -65,7 +69,7 @@ jobs:
       - name: Upload generated example report
         uses: actions/upload-artifact@v4
         with:
-          name: example-report-${{ matrix.image }}
+          name: example-report-${{ matrix.artifact }}
           path: ${{ runner.temp }}/generated-report/
           if-no-files-found: error
       - name: Shell syntax checks
