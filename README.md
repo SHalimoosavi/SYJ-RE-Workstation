@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/syj-re-workstation-social-preview.svg" alt="SYJ-RE-Workstation banner showing hex inspection, decompiled source, terminal analysis and connected analysis modules" width="100%">
+  <img src="docs/assets/syj-re-workstation-social-preview.png" alt="SYJ-RE-Workstation banner showing hex inspection, decompiled source, terminal analysis and connected analysis modules" width="100%">
 </p>
 
 # SYJ-RE-Workstation
@@ -294,6 +294,10 @@ Active is used only for SYJ Deploy because its 2026-10-17 commit was within roug
 - Report bugs and request features through [GitHub Issues](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues).
 
 GitHub Discussions are not listed because their availability for this repository has not been confirmed.
+
+## Roadmap
+
+The tracked delivery plan is maintained in [GitHub milestones](https://github.com/SHalimoosavi/SYJ-RE-Workstation/milestones). The current focus is a verified static-analysis foundation: compatibility testing, regression tests and accurate installation documentation. APKTool integration, ELF/native inspection, DEX analysis, additional report formats and dynamic analysis are later, separate workstreams. Planned work is not shipped functionality.
 
 ## License
 
