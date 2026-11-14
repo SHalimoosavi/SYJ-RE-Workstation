@@ -29,4 +29,4 @@ Community rows will be added only after a tester submits an [Environment test re
 
 ## How to contribute a result
 
-Follow [Testing on Android](testing-on-android.md), then submit the issue form with the exact commit, environment, architecture, tool versions, command output and sanitized logs. Never attach an APK or private report.
+Use [GitHub Discussions](https://github.com/SHalimoosavi/SYJ-RE-Workstation/discussions) for questions, test coordination and discussion of community results. Follow [Testing on Android](testing-on-android.md), then submit the [Environment test report issue form](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues/new?template=environment-test-report.yml) with the exact commit, environment, architecture, tool versions, command output and sanitized logs. Never attach an APK or private report.

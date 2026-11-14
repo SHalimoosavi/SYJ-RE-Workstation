@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/SHalimoosavi/SYJ-RE-Workstation/discussions
+    about: Ask usage questions, get setup help, and share ideas in GitHub Discussions.
+  - name: Report a vulnerability
+    url: https://github.com/SHalimoosavi/SYJ-RE-Workstation/blob/main/SECURITY.md
+    about: Follow the private reporting instructions in the security policy. Do not disclose vulnerabilities publicly.
