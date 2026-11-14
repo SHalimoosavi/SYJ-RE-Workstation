@@ -67,7 +67,8 @@ jobs:
         with:
           name: example-report-${{ matrix.image }}
           path: ${{ runner.temp }}/generated-report/
-          if-no-files-found: error\n      - name: Shell syntax checks
+          if-no-files-found: error
+      - name: Shell syntax checks
         run: bash -n scripts/*.sh tests/*.sh
       - name: ShellCheck
         run: |
