@@ -10,27 +10,23 @@ JADX **v1.5.6** requires a 64-bit Java runtime **11 or newer** according to the 
 
 ## Exact JRE package per supported release
 
-The package index dependency metadata identifies these runtime versions:
+JADX v1.5.6 requires a 64-bit Java runtime version 11 or newer.
 
-| Distribution | Install command | Runtime selected by `default-jre-headless` |
+| Distribution | Exact package command | Runtime |
 |---|---|---|
-| Debian 12 Bookworm | `sudo apt-get install -y default-jre-headless` | OpenJDK 17 |
-| Debian 13 Trixie | `sudo apt-get install -y default-jre-headless` | OpenJDK 21 |
-| Ubuntu 22.04 Jammy | `sudo apt-get install -y default-jre-headless` | OpenJDK 11 |
-| Ubuntu 24.04 Noble | `sudo apt-get install -y default-jre-headless` | OpenJDK 21 |
+| Debian 12 Bookworm | `sudo apt-get install -y openjdk-17-jre-headless` | OpenJDK 17 |
+| Debian 13 Trixie | `sudo apt-get install -y openjdk-21-jre-headless` | OpenJDK 21 |
+| Ubuntu 22.04 Jammy | `sudo apt-get install -y openjdk-11-jre-headless` | OpenJDK 11 |
+| Ubuntu 24.04 Noble | `sudo apt-get install -y openjdk-21-jre-headless` | OpenJDK 21 |
 
-Sources: Debian Bookworm and Trixie package records and Ubuntu Jammy and Noble package records for `default-jre-headless`. See [Bookworm](https://packages.debian.org/bookworm/default-jre-headless), [Trixie](https://packages.debian.org/trixie/default-jre-headless), [Jammy](https://packages.ubuntu.com/jammy/default-jre-headless), and [Noble](https://packages.ubuntu.com/noble/default-jre-headless). These records describe the package dependency; the CI matrix below is the source of actual compatibility test status.
+Package-index references: [Debian Bookworm default JRE](https://packages.debian.org/bookworm/default-jre-headless) and [OpenJDK 17](https://packages.debian.org/bookworm/openjdk-17-jre-headless); [Debian Trixie default JRE](https://packages.debian.org/trixie/default-jre-headless) and [OpenJDK 21](https://packages.debian.org/trixie/openjdk-21-jre-headless); [Ubuntu Jammy default JRE](https://packages.ubuntu.com/jammy/default-jre-headless) and [OpenJDK 11](https://packages.ubuntu.com/jammy/openjdk-11-jre-headless); [Ubuntu Noble default JRE](https://packages.ubuntu.com/noble/default-jre-headless) and [OpenJDK 21](https://packages.ubuntu.com/noble/openjdk-21-jre-headless).
 
-To install all required and optional Android tools plus the compatible JRE on any of these releases:
+The CI matrix installs `default-jre-headless` and verifies the release-selected Java runtime in each container. These explicit package commands install the same release-default runtime when configuring JADX manually. Confirm candidates on the target machine:
 
 ```bash
 sudo apt-get update
-apt-cache policy aapt apksigner apktool default-jre-headless
-sudo apt-get install -y aapt apksigner apktool default-jre-headless
-java -version
+apt-cache policy openjdk-17-jre-headless openjdk-21-jre-headless openjdk-11-jre-headless
 ```
-
-If `apt-cache policy` shows no candidate, check enabled official repositories and architecture before proceeding. Do not substitute an untrusted package source.
 
 ## Install JADX v1.5.6
 
