@@ -310,7 +310,7 @@ GitHub Discussions are not listed because their availability for this repository
 
 ## Roadmap
 
-The tracked delivery plan is maintained in [GitHub milestones](https://github.com/SHalimoosavi/SYJ-RE-Workstation/milestones). The current focus is a verified static-analysis foundation: compatibility testing, regression tests and accurate installation documentation. APKTool integration, ELF/native inspection, DEX analysis, additional report formats and dynamic analysis are later, separate workstreams. Planned work is not shipped functionality.
+See the [GitHub milestones page](https://github.com/SHalimoosavi/SYJ-RE-Workstation/milestones) as milestones are configured; the current work items are tracked in [GitHub issues](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues). The current focus is a verified static-analysis foundation: compatibility testing, regression tests and accurate installation documentation. APKTool integration, ELF/native inspection, DEX analysis, additional report formats and dynamic analysis are later, separate workstreams. Planned work is not shipped functionality.
 
 ## Roadmap status
 
