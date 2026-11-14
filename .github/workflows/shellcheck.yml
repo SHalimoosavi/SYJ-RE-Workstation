@@ -1,0 +1,17 @@
+name: Shell checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check shell syntax
+        run: bash -n scripts/*.sh
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: ./scripts

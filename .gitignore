@@ -1,0 +1,40 @@
+# APKs and Android build artifacts
+*.apk
+*.aab
+*.dex
+*.odex
+*.vdex
+*.so
+*.keystore
+*.jks
+*.pem
+*.p12
+
+# Analysis inputs, outputs and decompilation
+samples/
+input/
+reports/
+output/
+extracted/
+decompiled/
+jadx/
+*.log
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.token
+*credentials*
+*secrets*
+local.properties
+
+# Python / editor / OS
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
