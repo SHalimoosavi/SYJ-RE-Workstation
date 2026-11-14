@@ -2,7 +2,7 @@ name: GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: ['**']
     paths:
       - "site/**"
   pull_request:
@@ -35,7 +35,7 @@ jobs:
       - name: Check links, anchors, JSON-LD and sitemap
         run: python3 scripts/check-site.py
   deploy:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || github.event_name == 'push')
     needs: validate
     environment:
       name: github-pages
