@@ -34,13 +34,13 @@ Each job generated a sanitized tool-version record. JADX was unavailable in thes
 
 ## Maintainer-reported results
 
-The following is one maintainer-reported device data point. It is not an independent community report or an independently reproduced verification. Device model, Android release, `uname -m` architecture, exact commit SHA and `tool-versions.txt` contents were not recorded.
+The following is one maintainer-reported device data point. It is not an independent community report or an independently reproduced verification. Device model, Android release, exact commit SHA and the complete `tool-versions.txt` contents were not recorded. The architecture and Debian release below are retained from the available test-environment records.
 
 | Environment | Device | Android version | Architecture | Distribution / release | Commit tested | Test results | Date | Report status |
 |---|---|---|---|---|---|---|---|---|
-| Termux + Debian 13 PRoot on Android | not recorded | not recorded | not recorded | Debian 13 Trixie; v0.1.0 | not recorded | `tests/test-workstation.sh`: passed (14 tests); `analyze-apk.sh`: completed on two real APKs; optional JADX stage: failed (exit code 3) | 2026-11-14 | Maintainer-reported; one device; not independently verified |
+| Termux + Debian 13 PRoot on Android | not recorded | not recorded | `aarch64` | Debian GNU/Linux 13 (trixie), version `13.7`; v0.1.0 | not recorded | `tests/test-workstation.sh`: passed (14 tests); `analyze-apk.sh`: completed on two real APKs; optional JADX stage: failed (exit code 3) | 2026-11-14 | Maintainer-reported; one device; not independently verified |
 
-`tool-versions.txt` contents: not recorded. The optional JADX failure is recorded as a tool-stage failure; it does not change the fact that the analyzer completed its collection run.
+`tool-versions.txt` complete contents: not recorded. Historical environment notes list Java OpenJDK 21.0.13, Python 3.13.5, JADX 1.5.6, apktool 2.7.0-dirty, GNU binutils/objdump 2.44, GDB 16.3, YARA 4.5.2 and Termux radare2 6.2.4; these notes are not represented as a verified copy of the exact `tool-versions.txt` file. Device model and Android version remain not recorded. The optional JADX failure is recorded as a tool-stage failure; it does not change the fact that the analyzer completed its collection run.
 
 ## Community-reported results
 
