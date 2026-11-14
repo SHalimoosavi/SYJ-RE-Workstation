@@ -1,16 +1,16 @@
 # Android tool installation and compatibility
 
-This guide distinguishes distribution package metadata from tests executed by this repository's CI. A package being listed in a distribution index does not prove that it installs or that the analyzer works on that release.
+This guide distinguishes package availability from analyzer functionality and from tests actually executed by CI.
+
+[![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg)](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml)
 
 ## Runtime requirements
 
-The current analyzer requires Bash, `file`, `sha256sum`, `unzip` and AAPT (`aapt`). Signature verification with `apksigner` and DEX decompilation with JADX are optional. APKTool is installed in the compatibility workflow for package/tool checks, but no analyzer script invokes it. The Debian bootstrap installs YARA and binutils; the analyzer does not run YARA scans or parse/inspect ELF binaries yet.
+The analyzer requires Bash, `file`, `sha256sum`, `unzip`, `grep` and AAPT (`aapt`). Signature verification with `apksigner` and decompilation with JADX are optional. APKTool is installed in the compatibility workflow for package/tool checks only; no analyzer script invokes it. The Debian bootstrap installs YARA and binutils, but the analyzer does not run YARA scans or inspect ELF/native binaries.
 
-JADX **v1.5.6** requires a 64-bit Java runtime **11 or newer** according to the upstream project documentation. Install the distribution's `default-jre-headless` metapackage rather than hard-coding Java 21: it resolves to the default supported runtime for each release.
+JADX **v1.5.6** requires a 64-bit Java runtime **11 or newer** according to the upstream project documentation. The CI matrix installs the distribution's `default-jre-headless` metapackage.
 
-## Exact JRE package per supported release
-
-JADX v1.5.6 requires a 64-bit Java runtime version 11 or newer.
+## Release-specific Java packages
 
 | Distribution | Exact package command | Runtime |
 |---|---|---|
@@ -21,16 +21,16 @@ JADX v1.5.6 requires a 64-bit Java runtime version 11 or newer.
 
 Package-index references: [Debian Bookworm default JRE](https://packages.debian.org/bookworm/default-jre-headless) and [OpenJDK 17](https://packages.debian.org/bookworm/openjdk-17-jre-headless); [Debian Trixie default JRE](https://packages.debian.org/trixie/default-jre-headless) and [OpenJDK 21](https://packages.debian.org/trixie/openjdk-21-jre-headless); [Ubuntu Jammy default JRE](https://packages.ubuntu.com/jammy/default-jre-headless) and [OpenJDK 11](https://packages.ubuntu.com/jammy/openjdk-11-jre-headless); [Ubuntu Noble default JRE](https://packages.ubuntu.com/noble/default-jre-headless) and [OpenJDK 21](https://packages.ubuntu.com/noble/openjdk-21-jre-headless).
 
-The CI matrix installs `default-jre-headless` and verifies the release-selected Java runtime in each container. These explicit package commands install the same release-default runtime when configuring JADX manually. Confirm candidates on the target machine:
+The compatibility jobs install `default-jre-headless` and verify the Java runtime selected by each distribution. The explicit commands above are the corresponding release-specific JRE packages for manual JADX setup. Confirm package candidates on the target system before installation:
 
 ```bash
 sudo apt-get update
 apt-cache policy openjdk-17-jre-headless openjdk-21-jre-headless openjdk-11-jre-headless
 ```
 
-## Install JADX v1.5.6
+## Install JADX v1.5.6 (optional)
 
-The upstream JADX release provides the CLI archive. The project documents Java 11+ for 64-bit runtime environments. Use the same archive on all four distributions after installing their release-correct JRE above.
+Install a 64-bit Java 11+ runtime first. Then download and unpack the official release archive:
 
 ```bash
 sudo apt-get install -y ca-certificates curl unzip
@@ -50,7 +50,9 @@ Upstream references: [JADX releases](https://github.com/skylot/jadx/releases/tag
 
 ## Compatibility matrix
 
-The completed GitHub Actions compatibility run [#84](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43550686140) passed all four amd64 container jobs. Each job completed package installation, Debian bootstrap, disposable APK fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck.
+[![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg)](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml)
+
+The compatibility workflow runs package installation, Debian bootstrap, disposable APK fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck on the four GitHub-hosted amd64 container images:
 
 | Environment | Container image | Package installation | Bootstrap | APK integration and tests | Overall |
 |---|---|---|---|---|---|
@@ -59,26 +61,26 @@ The completed GitHub Actions compatibility run [#84](https://github.com/SHalimoo
 | Ubuntu 22.04 Jammy | `ubuntu:22.04` | Passed | Passed | Passed | Passed |
 | Ubuntu 24.04 Noble | `ubuntu:24.04` | Passed | Passed | Passed | Passed |
 
-These results come exclusively from GitHub-hosted Actions jobs running the listed x86_64 Debian/Ubuntu container images. CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android. Real-device Termux and Debian PRoot compatibility, and other CPU architectures, remain outside this matrix. Run #84 is the successful completed matrix for this branch; it does not establish device-side compatibility.
+**Boundary:** CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed. Other CPU architectures are also outside this matrix.
 
 ## Verify installed tools
 
 ```bash
-command -v aapt apksigner apktool java
-dpkg-query -W -f='${Package} ${Version}\\n' aapt apksigner apktool default-jre-headless
+command -v aapt apksigner java
 aapt version
 apksigner version
-apktool --version
 java -version
 ```
+
+Run `apksigner version` only when apksigner is installed. JADX is optional; verify it separately with `jadx --version` after installing it.
 
 ## Scope and caveats
 
 - AAPT is required by `scripts/analyze-apk.sh`.
 - apksigner and JADX are optional integrations.
-- APKTool is installed in CI for package/tool checks but is not called by the analyzer.
+- APKTool is not invoked by the analyzer; there is no APKTool integration in this release.
 - YARA is installed by the Debian bootstrap but is not used by the analyzer; no YARA scan or ruleset is run.
 - binutils is installed by the Debian bootstrap, but no ELF/native binary parser or inspection pipeline is implemented.
+- DEX/native-library archive paths are listed; DEX structure and ELF contents are not analyzed.
+- JSON and HTML report exports are not implemented.
 - A successful static collection run is not a malware verdict and does not prove an APK safe.
-- CI runs in GitHub-hosted Debian/Ubuntu container images only. It does not test physical Android devices, Termux itself, or Debian PRoot on Android.
-- Compatibility with real Android Termux and Debian PRoot must be validated separately on-device; neither is covered by the CI matrix.

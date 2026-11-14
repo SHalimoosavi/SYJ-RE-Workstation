@@ -1,6 +1,6 @@
 # Testing on Android
 
-This guide tests the supported Termux + Debian PRoot workflow. It does not claim that the analyzer runs natively inside Termux. Allow extra time if Debian packages need to download.
+This is a provisional guide for testing Termux + Debian PRoot on a physical Android device. It does not claim native Termux execution or verified device compatibility. No reproducible community device reports have been accepted yet. Allow extra time if Debian packages need to download.
 
 ## 1. Prepare Termux
 
@@ -25,7 +25,7 @@ Inside Debian:
 
 ```bash
 apt-get update
-apt-get install -y bash file unzip coreutils grep aapt android-framework-res shellcheck
+apt-get install -y git bash file unzip coreutils grep aapt android-framework-res shellcheck
 cd /mnt/syj-re
 ```
 
@@ -34,7 +34,7 @@ AAPT and the framework resource package are required to build the disposable tes
 ## 3. Build the fixture and run the tests
 
 ```bash
-aapt package -f -M docs/sample-fixture/AndroidManifest.xml -I /usr/share/android-framework-res/framework-res.apk -F /tmp/syj-ci-fixture.apk
+aapt package -f -M docs/sample-apk/AndroidManifest.xml -I /usr/share/android-framework-res/framework-res.apk -F /tmp/syj-ci-fixture.apk
 SYJ_TEST_APK=/tmp/syj-ci-fixture.apk bash tests/test-workstation.sh
 bash -n scripts/*.sh tests/*.sh
 shellcheck scripts/*.sh tests/*.sh
@@ -84,4 +84,4 @@ Remove usernames, home-directory paths, private APK names, personal information,
 
 ## What this test does not establish
 
-A passing test on one phone does not establish compatibility on every Android device or architecture. GitHub CI separately covers only the four named GitHub-hosted amd64 Debian/Ubuntu container images. The project remains early-stage and performs static evidence collection only; it is not a malware detector or proof of APK safety.
+A passing test on one phone does not establish compatibility on every Android device or architecture. GitHub CI separately covers only the four named GitHub-hosted amd64 Debian/Ubuntu container images. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed. The project remains early-stage and performs static evidence collection only; it is not a malware detector or proof of APK safety.

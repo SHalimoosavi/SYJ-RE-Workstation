@@ -4,11 +4,11 @@
 
 # SYJ-RE-Workstation
 
-Open-source reverse engineering and APK analysis for Android security inspection and static analysis on Debian, Linux and Android through Termux. The workstation uses Bash scripts to collect APK metadata, permissions, manifest structure, archive inventory, signatures and optional decompilation evidence.
+Open-source Bash-based static APK evidence collection for Debian-compatible Linux. A provisional Termux + Debian PRoot setup guide is provided, but device-side compatibility remains unverified.
 
 ## What is SYJ-RE-Workstation?
 
-SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static inspection of Android APK files. It runs on Linux environments, including Debian PRoot launched from Termux, and records package metadata, permissions, manifest information, archive contents, optional signature verification and optional JADX output in local report directories.
+SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static inspection of Android APK files. It targets Debian-compatible Linux and records package metadata, permissions, manifest information, archive contents, optional signature verification and optional JADX output in local report directories. Termux + Debian PRoot instructions are provisional and have not been validated on a physical Android device.
 
 ## At a glance
 
@@ -18,8 +18,9 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 | Type | Open-source Android APK static-analysis workstation |
 | Primary language | Bash |
 | License | MIT |
-| Platforms / environments | Debian and compatible Linux; Debian PRoot on Android through Termux |
+| Platforms / environments | Debian-compatible Linux; provisional Termux + Debian PRoot instructions (device validation unverified) |
 | Status | Early prototype; validation is ongoing |
+| First public release target | v0.1.0 (not yet published) |
 | Requirements | Bash, file, sha256sum, unzip, AAPT; optional apksigner and JADX |
 | Owner | Syed Ali Hasan Moosavi |
 | Organization | SAYANJALI NEXUS PRIVATE LIMITED |
@@ -27,11 +28,12 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 
 <p align="center">
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/SHalimoosavi/SYJ-RE-Workstation"></a>
+  <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml"><img alt="Compatibility workflow status" src="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg"></a>
   <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/shellcheck.yml"><img alt="Shell checks workflow status" src="https://img.shields.io/github/actions/workflow/status/SHalimoosavi/SYJ-RE-Workstation/shellcheck.yml?label=shell%20checks"></a>
   <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/commits/main"><img alt="Latest commit" src="https://img.shields.io/github/last-commit/SHalimoosavi/SYJ-RE-Workstation"></a>
 </p>
 
-## Two-minute first run
+## Quick start
 
 The repository includes a tiny, original Android manifest fixture at [docs/sample-apk/AndroidManifest.xml](docs/sample-apk/AndroidManifest.xml). Build your own test APK locally with AAPT; no third-party application APK is redistributed. The fixture is for testing collection output only.
 
@@ -59,7 +61,7 @@ Reports are created under the Debian user's home directory by default. In the Te
 
 ## How to analyze an APK in 5 steps
 
-The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The compatibility workflow runs on GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test a physical Android device, Termux itself, or Debian PRoot running on Android; see the [tool compatibility matrix](docs/android-tool-installation.md).
+The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The compatibility workflow runs on GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test a physical Android device, Termux itself, or Debian PRoot running on Android. Termux and Debian PRoot remain unverified until reproducible community reports are submitted and reviewed; see the [tool compatibility matrix](docs/android-tool-installation.md).
 
 1. **Install Termux packages and clone the project:**
    ```bash
@@ -217,7 +219,7 @@ A successful run means the scripted collection steps completed; it does not mean
 
 ## Compatibility validation
 
-The completed GitHub Actions compatibility run [#31](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43549803520) passed all four amd64 container jobs. Package installation, Debian bootstrap, APK fixture build, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck all passed in each job.
+The [![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg)](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml) validates package installation, Debian bootstrap, APK fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck in the four GitHub-hosted amd64 container images.
 
 | Environment | Package install | Bootstrap | Analyzer tests | Overall |
 |---|---|---|---|---|
@@ -226,7 +228,7 @@ The completed GitHub Actions compatibility run [#31](https://github.com/SHalimoo
 | Ubuntu 22.04 Jammy | Passed | Passed | Passed | Passed |
 | Ubuntu 24.04 Noble | Passed | Passed | Passed | Passed |
 
-This verifies only these four amd64 container images and the workflow's defined steps; it does not prove Termux, Android-device, PRoot or other-architecture compatibility. The earlier test assertion for an empty DEX inventory was corrected; the completed PR-head run [#90](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43551892781) passed all four matrix jobs.
+This verifies only these four amd64 container images and the workflow's defined steps; it does not prove Termux, Android-device, PRoot or other-architecture compatibility. The regression suite includes the corrected empty DEX-inventory assertion. See the live compatibility workflow for current run results.
 
 ## Known limitations
 
@@ -370,8 +372,8 @@ The tracked delivery plan is maintained in [GitHub milestones](https://github.co
 
 | Phase | Scope | Status |
 |---|---|---|
-| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, local reports and report comparison | Implemented; regression-checked in compatibility run #84 |
-| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | Passed on Debian 12/13 and Ubuntu 22.04/24.04 amd64 containers in compatibility run [#84](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43550686140); this is not Android/Termux/PRoot validation |
+| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, raw evidence files, SUMMARY.md, tool-versions.txt and report comparison | Implemented; regression-checked in the compatibility workflow |
+| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | Passed on Debian 12/13 and Ubuntu 22.04/24.04 amd64 containers in the [compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml); this is not Android/Termux/PRoot validation |
 | Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
 | Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime analysis | Planned; not shipped and outside current static analyzer |
 
