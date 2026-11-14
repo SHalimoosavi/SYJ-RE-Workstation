@@ -6,7 +6,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 [![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg)](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml)
 
-## [0.1.0] - Unreleased
+## [0.1.0] - 2026-11-14
 
 ### Initial public release
 
@@ -36,4 +36,4 @@ The first public release is intended to contain the complete feature set current
 - The compatibility workflow is linked above. It validates GitHub-hosted Debian/Ubuntu amd64 containers only; it does not validate physical Android devices, native Termux or Debian PRoot on Android.
 - Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
 - This is early-stage static evidence collection, not a malware verdict, vulnerability confirmation or proof that an APK is safe.
-- The release date is intentionally omitted until the project owner confirms the publication day. No tag or GitHub Release has been created by this documentation change.
+- Release date: 2026-11-14. The tag and GitHub Release remain unpublished pending final publication authorization.
