@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
 usage() {
   echo "Usage: $0 /path/to/application.apk" >&2
   exit 2
@@ -92,6 +94,9 @@ Report directory: $OUT
 Generated: $(date -Is 2>/dev/null || date)
 Scope: static inspection only
 EOF
+
+bash "$SCRIPT_DIR/write-tool-versions.sh" "$OUT"
+bash "$SCRIPT_DIR/generate-summary.sh" "$OUT"
 
 echo
 echo "Analysis complete: $OUT"
