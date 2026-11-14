@@ -4,11 +4,11 @@
 
 # SYJ-RE-Workstation
 
-Open-source Bash-based static APK evidence collection for Debian-compatible Linux. A provisional Termux + Debian PRoot setup guide is provided, but device-side compatibility remains unverified.
+Open-source Bash-based static APK evidence collection for Debian-compatible Linux. A provisional Termux + Debian PRoot setup guide is provided. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet.
 
 ## What is SYJ-RE-Workstation?
 
-SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static inspection of Android APK files. It targets Debian-compatible Linux and records package metadata, permissions, manifest information, archive contents, optional signature verification and optional JADX output in local report directories. Termux + Debian PRoot instructions are provisional and have not been validated on a physical Android device.
+SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static inspection of Android APK files. It targets Debian-compatible Linux and records package metadata, permissions, manifest information, archive contents, optional signature verification and optional JADX output in local report directories. Termux + Debian PRoot instructions remain provisional. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet.
 
 ## At a glance
 
@@ -18,7 +18,7 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 | Type | Open-source Android APK static-analysis workstation |
 | Primary language | Bash |
 | License | MIT |
-| Platforms / environments | Debian-compatible Linux; provisional Termux + Debian PRoot instructions (device validation unverified) |
+| Platforms / environments | Debian-compatible Linux; Termux + Debian 13 PRoot via Termux (one maintainer-reported Android device; no independent reports yet) |
 | Status | Early prototype; validation is ongoing |
 | First public release | v0.1.0 ([published 2026-11-14](https://github.com/SHalimoosavi/SYJ-RE-Workstation/releases/tag/v0.1.0)) |
 | Requirements | Bash, file, sha256sum, unzip, AAPT; optional apksigner and JADX |
@@ -64,7 +64,7 @@ Reports are created under the Debian user's home directory by default. In the Te
 
 ## How to analyze an APK in 5 steps
 
-The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The compatibility workflow runs on GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test a physical Android device, Termux itself, or Debian PRoot running on Android. Termux and Debian PRoot remain unverified until reproducible community reports are submitted and reviewed; see the [tool compatibility matrix](docs/android-tool-installation.md).
+The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The compatibility workflow runs on GitHub-hosted Debian/Ubuntu amd64 containers only. It does not provide broad Android-device, native Termux or cross-device Debian PRoot coverage. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. See the [tool compatibility matrix](docs/compatibility.md).
 
 1. **Install Termux packages and clone the project:**
    ```bash
@@ -231,11 +231,11 @@ The [![Compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstatio
 | Ubuntu 22.04 Jammy | Passed | Passed | Passed | Passed |
 | Ubuntu 24.04 Noble | Passed | Passed | Passed | Passed |
 
-This verifies only these four amd64 container images and the workflow's defined steps; it does not prove Termux, Android-device, PRoot or other-architecture compatibility. The regression suite includes the corrected empty DEX-inventory assertion. See the live compatibility workflow for current run results.
+This verifies only these four amd64 container images and the workflow's defined steps; it does not prove compatibility on other Android devices, native Termux, PRoot configurations or other architectures. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. The regression suite includes the corrected empty DEX-inventory assertion. See the live compatibility workflow for current run results.
 
 ## Known limitations
 
-- The repository is an early prototype. The compatibility matrix covers only the four named amd64 container images; real-device validation remains separate.
+- The repository is an early prototype. The compatibility matrix covers only the four named amd64 container images. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet.
 - AAPT is required and is not installed by the Debian bootstrap script.
 - apksigner and JADX are optional integrations. APKTool is installed in CI for package/tool checks but is not invoked by the analyzer.
 - The Debian bootstrap installs YARA, but the analyzer does not run YARA scans or load YARA rules yet.
@@ -263,7 +263,7 @@ No Android root access is required for the documented Termux plus Debian PRoot w
 
 ### Can I run it on Debian or Ubuntu?
 
-The scripts target Debian-compatible Linux environments and use Bash plus standard command-line utilities. Package names and versions vary by distribution release and architecture. The GitHub Actions workflow has completed install and analyzer checks in the four named amd64 container images. This does not establish compatibility on a physical Android device, Termux itself, Debian PRoot on Android, or other CPU architectures.
+The scripts target Debian-compatible Linux environments and use Bash plus standard command-line utilities. Package names and versions vary by distribution release and architecture. The GitHub Actions workflow has completed install and analyzer checks in the four named amd64 container images. This does not establish broad compatibility on physical Android devices, native Termux, Debian PRoot on other devices, or other CPU architectures. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet.
 
 ### Which tools do I need to install?
 
