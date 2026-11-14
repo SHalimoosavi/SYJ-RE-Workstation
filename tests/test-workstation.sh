@@ -28,7 +28,7 @@ grep -q 'not a readable ZIP/APK archive' "$TMP/non-apk.out" || fail "non-APK dia
 pass "analyzer rejects non-APK input"
 
 mkdir -p "$TMP/minimal-bin"
-for command_name in file sha256sum unzip grep basename mkdir tee stat wc date; do
+for command_name in bash file sha256sum unzip grep basename mkdir tee stat wc date; do
   command -v "$command_name" >/dev/null || fail "test host lacks $command_name"
   ln -s "$(command -v "$command_name")" "$TMP/minimal-bin/$command_name"
 done
@@ -45,7 +45,7 @@ REPORT="$SYJ_RE_HOME/reports/$(basename "$SYJ_TEST_APK" .apk)"
 for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt dex-and-native-libraries.txt signature.txt jadx-status.txt; do
   [[ -s "$REPORT/$output" ]] || fail "expected report output missing or empty: $output"
 done
-pass "analyzer creates expected evidence files"
+if [[ -n "${SYJ_TEST_REPORT_DIR:-}" ]]; then\n  mkdir -p "$SYJ_TEST_REPORT_DIR"\n  cp -a "$REPORT" "$SYJ_TEST_REPORT_DIR/"\nfi\npass "analyzer creates expected evidence files"
 
 mkdir -p "$TMP/report-a" "$TMP/report-b"
 for f in badging.txt permissions.txt dex-and-native-libraries.txt signature.txt; do
