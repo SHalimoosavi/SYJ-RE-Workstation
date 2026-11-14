@@ -17,4 +17,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Notes
 - This is an early prototype release record, not a claim of broad platform validation.
-- Debian 12/13 and Ubuntu 22.04/24.04 clean installation tests remain unverified.
+- GitHub Actions compatibility run [#31](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43549803520) passed package installation, bootstrap, fixture generation, analyzer tests, artifact upload, Bash syntax checks and ShellCheck on Debian 12, Debian 13, Ubuntu 22.04 and Ubuntu 24.04 (amd64 containers).
+- This does not verify Termux on-device, Debian PRoot on Android, other CPU architectures, dynamic analysis, or a safety/malware verdict.
+- The repository remains early-stage; the release tag has not been created.
