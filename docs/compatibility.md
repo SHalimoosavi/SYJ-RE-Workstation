@@ -32,9 +32,19 @@ Each job generated a sanitized tool-version record. JADX was unavailable in thes
 
 **Boundary:** CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test a physical Android device, Termux itself, Debian PRoot on Android, ARM/ARM64 devices, or every package mirror and tool version. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
 
+## Maintainer-reported results
+
+The following is one maintainer-reported device data point. It is not an independent community report or an independently reproduced verification. Device model, Android release, `uname -m` architecture, exact commit SHA and `tool-versions.txt` contents were not recorded.
+
+| Environment | Device | Android version | Architecture | Distribution / release | Commit tested | Test results | Date | Report status |
+|---|---|---|---|---|---|---|---|---|
+| Termux + Debian 13 PRoot on Android | not recorded | not recorded | not recorded | Debian 13 Trixie; v0.1.0 | not recorded | `tests/test-workstation.sh`: passed (14 tests); `analyze-apk.sh`: completed on two real APKs; optional JADX stage: failed (exit code 3) | 2026-11-14 | Maintainer-reported; one device; not independently verified |
+
+`tool-versions.txt` contents: not recorded. The optional JADX failure is recorded as a tool-stage failure; it does not change the fact that the analyzer completed its collection run. No client APK names, identifiers, signing details, findings or report contents are included.
+
 ## Community-reported results
 
-No independently submitted and reviewed Termux or Debian PRoot device reports have been recorded in this table yet. Do not interpret the absence of reports as a pass.
+No independent community reports have been submitted and reviewed yet. The maintainer-reported row above is a single data point and is not independent verification. Do not interpret it as evidence for other devices or architectures.
 
 | Environment | Device | Android version | Architecture | Distribution / release | Commit tested | Result | Report |
 |---|---|---|---|---|---|---|---|
