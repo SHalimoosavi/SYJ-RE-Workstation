@@ -1,7 +1,5 @@
 # Analyze an APK using Termux and Debian PRoot
 
-<badge>Not yet CI-tested</badge>
-
 **Status: not yet CI-tested.** The repository's GitHub Actions compatibility workflow runs only in GitHub-hosted Debian/Ubuntu amd64 containers. It does not execute on Android, inside Termux, or inside Debian PRoot running on Android. Do not treat the commands below as verified device compatibility. This tutorial remains provisional until community members submit reproducible device-side reports.
 
 ## 1. Install Termux packages
