@@ -325,6 +325,10 @@ The tracked delivery plan is maintained in [GitHub milestones](https://github.co
 | Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
 | Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime analysis | Planned; not shipped and outside current static analyzer |
 
+## Example output
+
+The CI workflow builds a disposable APK fixture and generates a local report. A checked-in example report is **not available yet**: the first matrix run failed a test assertion, and the corrected test has not completed a fresh matrix run. See [the example-report status](docs/example-report/README.md). No output is fabricated.
+
 ## License
 
 SYJ-RE-Workstation is released under the [MIT License](LICENSE).
