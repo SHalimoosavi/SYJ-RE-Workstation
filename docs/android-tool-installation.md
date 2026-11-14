@@ -4,13 +4,13 @@ This guide distinguishes distribution package metadata from tests executed by th
 
 ## Runtime requirements
 
-The current analyzer requires Bash, `file`, `sha256sum`, `unzip` and AAPT (`aapt`). Signature verification with `apksigner` and DEX decompilation with JADX are optional. APKTool is currently a separately installed/manual utility; no shipped script invokes it.
+The current analyzer requires Bash, `file`, `sha256sum`, `unzip` and AAPT (`aapt`). Signature verification with `apksigner` and DEX decompilation with JADX are optional. APKTool is installed in the compatibility workflow for package/tool checks, but no analyzer script invokes it. The Debian bootstrap installs YARA and binutils; the analyzer does not run YARA scans or parse/inspect ELF binaries yet.
 
 JADX **v1.5.6** requires a 64-bit Java runtime **11 or newer** according to the upstream project documentation. Install the distribution's `default-jre-headless` metapackage rather than hard-coding Java 21: it resolves to the default supported runtime for each release.
 
 ## Exact JRE package per supported release
 
-JADX v1.5.6 requires a 64-bit Java runtime version 11 or newer. These package-index records show the release-default runtime dependencies:
+JADX v1.5.6 requires a 64-bit Java runtime version 11 or newer.
 
 | Distribution | Exact package command | Runtime |
 |---|---|---|
@@ -21,7 +21,7 @@ JADX v1.5.6 requires a 64-bit Java runtime version 11 or newer. These package-in
 
 Package-index references: [Debian Bookworm default JRE](https://packages.debian.org/bookworm/default-jre-headless) and [OpenJDK 17](https://packages.debian.org/bookworm/openjdk-17-jre-headless); [Debian Trixie default JRE](https://packages.debian.org/trixie/default-jre-headless) and [OpenJDK 21](https://packages.debian.org/trixie/openjdk-21-jre-headless); [Ubuntu Jammy default JRE](https://packages.ubuntu.com/jammy/default-jre-headless) and [OpenJDK 11](https://packages.ubuntu.com/jammy/openjdk-11-jre-headless); [Ubuntu Noble default JRE](https://packages.ubuntu.com/noble/default-jre-headless) and [OpenJDK 21](https://packages.ubuntu.com/noble/openjdk-21-jre-headless).
 
-These are distribution package-index dependencies, not an assertion that a specific mirror or architecture was tested. Confirm candidates on the target machine:
+The CI matrix installs `default-jre-headless` and verifies the release-selected Java runtime in each container. These explicit package commands install the same release-default runtime when configuring JADX manually. Confirm candidates on the target machine:
 
 ```bash
 sudo apt-get update
@@ -50,16 +50,16 @@ Upstream references: [JADX releases](https://github.com/skylot/jadx/releases/tag
 
 ## Compatibility matrix
 
-Status is populated from GitHub Actions runs on the compatibility workflow. The status reflects compatibility workflow run [#6](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43548949633). Package installation, bootstrap and fixture build passed on all four images. The analyzer regression suite failed on all four because the fixture correctly contained no DEX/native-library entries, while the test incorrectly required the DEX inventory report to be non-empty. That assertion has since been corrected to accept an empty inventory file, but the corrected test has not yet run to completion in a fresh matrix. Overall compatibility remains Failed / not verified.
+The completed GitHub Actions compatibility run [#84](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43550686140) passed all four amd64 container jobs. Each job completed package installation, Debian bootstrap, disposable APK fixture generation, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck.
 
-| Environment | Container image | Package installation | Bootstrap | APK integration | Overall |
+| Environment | Container image | Package installation | Bootstrap | APK integration and tests | Overall |
 |---|---|---|---|---|---|
-| Debian 12 Bookworm | `debian:12` | Passed (run 6) | Passed (run 6) | Failed: empty DEX inventory assertion | Failed |
-| Debian 13 Trixie | `debian:13` | Passed (run 6) | Passed (run 6) | Failed: empty DEX inventory assertion | Failed |
-| Ubuntu 22.04 Jammy | `ubuntu:22.04` | Passed (run 6) | Passed (run 6) | Failed: empty DEX inventory assertion | Failed |
-| Ubuntu 24.04 Noble | `ubuntu:24.04` | Passed (run 6) | Passed (run 6) | Failed: empty DEX inventory assertion | Failed |
+| Debian 12 Bookworm | `debian:12` | Passed | Passed | Passed | Passed |
+| Debian 13 Trixie | `debian:13` | Passed | Passed | Passed | Passed |
+| Ubuntu 22.04 Jammy | `ubuntu:22.04` | Passed | Passed | Passed | Passed |
+| Ubuntu 24.04 Noble | `ubuntu:24.04` | Passed | Passed | Passed | Passed |
 
-A successful workflow job will be reported as Passed only for the steps that actually ran successfully. A failed job will remain Failed until the failure is fixed and a rerun succeeds. Architecture and Termux/Android-device compatibility are not covered by these amd64 container tests.
+These results come exclusively from GitHub-hosted Actions jobs running the listed x86_64 Debian/Ubuntu container images. CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android. Real-device Termux and Debian PRoot compatibility, and other CPU architectures, remain outside this matrix. Run #84 is the successful completed matrix for this branch; it does not establish device-side compatibility.
 
 ## Verify installed tools
 
@@ -76,6 +76,9 @@ java -version
 
 - AAPT is required by `scripts/analyze-apk.sh`.
 - apksigner and JADX are optional integrations.
-- APKTool is not currently called by the analyzer.
+- APKTool is installed in CI for package/tool checks but is not called by the analyzer.
+- YARA is installed by the Debian bootstrap but is not used by the analyzer; no YARA scan or ruleset is run.
+- binutils is installed by the Debian bootstrap, but no ELF/native binary parser or inspection pipeline is implemented.
 - A successful static collection run is not a malware verdict and does not prove an APK safe.
-- CI container results do not prove compatibility on every CPU architecture, Android device, Termux version or PRoot configuration.
+- CI runs in GitHub-hosted Debian/Ubuntu container images only. It does not test physical Android devices, Termux itself, or Debian PRoot on Android.
+- Compatibility with real Android Termux and Debian PRoot must be validated separately on-device; neither is covered by the CI matrix.

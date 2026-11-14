@@ -1,0 +1,1 @@
+syj-ci-fixture.apk: Android package (APK), with AndroidManifest.xml

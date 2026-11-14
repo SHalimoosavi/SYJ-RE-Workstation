@@ -35,7 +35,7 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 
 ## How to analyze an APK in 5 steps
 
-The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The Debian 12/13 and Ubuntu 22.04/24.04 package installation tests remain unverified; see the [tool compatibility matrix](docs/android-tool-installation.md).
+The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The compatibility workflow runs on GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test a physical Android device, Termux itself, or Debian PRoot running on Android; see the [tool compatibility matrix](docs/android-tool-installation.md).
 
 1. **Install Termux packages and clone the project:**
    ```bash
@@ -73,7 +73,7 @@ sudo bash scripts/debian-bootstrap.sh
 
 The bootstrap script installs base command-line tools. It does not install AAPT, apksigner, APKTool or JADX. AAPT is required; apksigner and JADX are optional for the current analyzer. APKTool is not called by the current scripts.
 
-See [Android tool installation and release compatibility](docs/android-tool-installation.md) for package names, repository package versions and exact installation commands. Package availability is not the same as a successful installation test: the Debian 12, Debian 13, Ubuntu 22.04 and Ubuntu 24.04 install tests remain unverified in this environment.
+See [Android tool installation and release compatibility](docs/android-tool-installation.md) for package names, repository package versions and exact installation commands. The completed GitHub-hosted container CI results are recorded in the compatibility matrix below. These are container-image tests, not tests on Android, Termux or Debian PRoot.
 
 ## Install on Android with Termux
 
@@ -143,6 +143,14 @@ bash scripts/compare-reports.sh /path/to/report-A /path/to/report-B
 
 It compares `badging.txt`, `permissions.txt`, `dex-and-native-libraries.txt` and `signature.txt`. Missing files are reported. The script continues through all four comparisons and suppresses `diff`'s non-zero status; therefore, a zero exit code does not mean the reports are identical.
 
+## Example output
+
+A sample report generated from the workflow-built minimal APK fixture is available in [docs/example-report/](docs/example-report/README.md). It records observed AAPT metadata, manifest, archive inventory, hash, unsigned signature result and skipped JADX status.
+
+## JADX archive integrity
+
+The JADX v1.5.6 release ZIP has no upstream SHA-256 checksum published with its release assets. A locally computed hash can detect later changes to your own downloaded copy, but it cannot authenticate the archive without a trusted upstream digest. For manual risk reduction, download only from the official `skylot/jadx` GitHub release over HTTPS, inspect the release page and asset name, retain the downloaded ZIP and record `sha256sum jadx-1.5.6.zip` locally, and compare that local value across transfers. Do not describe this as upstream checksum verification. The upstream source tag/signature, if independently verified, is not proof that the binary ZIP asset matches that source.
+
 ## Read the evidence
 
 Start with `REPORT-INFO.txt`, `file.txt` and `sha256.txt`. Review `badging.txt`, `permissions.txt` and `manifest-tree.txt` for package and manifest evidence. Use `archive-files.txt` and `dex-and-native-libraries.txt` for archive inventory. If available, inspect `signature.txt`, `jadx-status.txt` and `jadx.log`.
@@ -157,7 +165,7 @@ A successful run means the scripted collection steps completed; it does not mean
 - Optional apksigner verification and optional JADX invocation.
 - A report comparison helper.
 - Termux and Debian bootstrap scripts.
-- GitHub Actions shell syntax and ShellCheck workflow.
+- GitHub Actions compatibility matrix and shell checks.
 
 **Planned, not shipped**
 - Dedicated ELF/native binary analysis workflows.
@@ -168,28 +176,30 @@ A successful run means the scripted collection steps completed; it does not mean
 
 ## Compatibility validation
 
-The first completed four-image CI run installed the analysis packages, completed the Debian bootstrap and built the disposable APK fixture on all four releases. The analyzer regression job then failed on all four because the fixture has no DEX/native-library entries and the test incorrectly required that report file to be non-empty. The test assertion has since been corrected to accept an empty inventory file, but that correction has not yet been validated by another completed matrix run. **No release is currently marked compatible or verified.**
+The completed GitHub Actions compatibility run [#31](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43549803520) passed all four amd64 container jobs. Package installation, Debian bootstrap, APK fixture build, analyzer regression tests, report artifact upload, Bash syntax checks and ShellCheck all passed in each job.
 
 | Environment | Package install | Bootstrap | Analyzer tests | Overall |
 |---|---|---|---|---|
-| Debian 12 Bookworm | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
-| Debian 13 Trixie | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
-| Ubuntu 22.04 Jammy | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
-| Ubuntu 24.04 Noble | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+| Debian 12 Bookworm | Passed | Passed | Passed | Passed |
+| Debian 13 Trixie | Passed | Passed | Passed | Passed |
+| Ubuntu 22.04 Jammy | Passed | Passed | Passed | Passed |
+| Ubuntu 24.04 Noble | Passed | Passed | Passed | Passed |
 
-[Compatibility workflow run #6](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43548949633). The corrected test and report-artifact upload still require a fresh completed matrix run.
+This verifies only these four amd64 container images and the workflow's defined steps; it does not prove Termux, Android-device, PRoot or other-architecture compatibility. The earlier test assertion for an empty DEX inventory was corrected; the completed PR-head run [#90](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43551892781) passed all four matrix jobs.
 
 ## Known limitations
 
-- The repository is an early prototype. Cross-device and cross-distribution validation is incomplete.
+- The repository is an early prototype. The compatibility matrix covers only the four named amd64 container images; real-device validation remains separate.
 - AAPT is required and is not installed by the Debian bootstrap script.
-- apksigner and JADX are optional. APKTool is not called by current scripts.
+- apksigner and JADX are optional integrations. APKTool is installed in CI for package/tool checks but is not invoked by the analyzer.
+- The Debian bootstrap installs YARA, but the analyzer does not run YARA scans or load YARA rules yet.
+- The Debian bootstrap installs binutils, but the analyzer does not yet parse or inspect ELF/native binaries; archive inventory only lists matching paths.
 - JADX may not decompile all generated, inline, Kotlin coroutine or framework code cleanly. Review its log and corroborate observations.
 - Signature verification errors are recorded as warnings and analysis continues.
 - Static inspection cannot establish that an APK is safe, malicious or exploitable.
 - Debian PRoot is a Linux userspace, not a virtual machine. It does not change the Android CPU architecture or provide a separate kernel, hardware virtualization, cgroups or every Android device interface.
-- CI checks shell syntax and linting; it does not run APK integration tests or validate every platform.
-- The requested clean-container install tests for Debian 12/13 and Ubuntu 22.04/24.04 could not be completed in the current environment.
+- CI runs analyzer regression tests, Bash syntax checks and ShellCheck in the four named GitHub-hosted amd64 Debian/Ubuntu container images. It does not validate every platform; physical Android, Termux itself and Debian PRoot on Android are outside CI.
+- CI coverage is limited to the four named GitHub-hosted amd64 Debian/Ubuntu container images. Real Android Termux and Debian PRoot running on Android are not covered by CI and require separate device-side validation.
 
 ## Frequently asked questions
 
@@ -207,7 +217,7 @@ No Android root access is required for the documented Termux plus Debian PRoot w
 
 ### Can I run it on Debian or Ubuntu?
 
-The scripts target Debian-compatible Linux environments and use Bash plus standard command-line utilities. Package names and versions vary by distribution release and architecture. The documentation lists package-index availability for Debian 12/13 and Ubuntu 22.04/24.04, but clean install tests for those four releases have not been completed here. Treat the matrix as reference, not a compatibility guarantee.
+The scripts target Debian-compatible Linux environments and use Bash plus standard command-line utilities. Package names and versions vary by distribution release and architecture. The GitHub Actions workflow has completed install and analyzer checks in the four named amd64 container images. This does not establish compatibility on a physical Android device, Termux itself, Debian PRoot on Android, or other CPU architectures.
 
 ### Which tools do I need to install?
 
@@ -310,14 +320,14 @@ GitHub Discussions are not listed because their availability for this repository
 
 ## Roadmap
 
-See the [GitHub milestones page](https://github.com/SHalimoosavi/SYJ-RE-Workstation/milestones) as milestones are configured; the current work items are tracked in [GitHub issues](https://github.com/SHalimoosavi/SYJ-RE-Workstation/issues). The current focus is a verified static-analysis foundation: compatibility testing, regression tests and accurate installation documentation. APKTool integration, ELF/native inspection, DEX analysis, additional report formats and dynamic analysis are later, separate workstreams. Planned work is not shipped functionality.
+The tracked delivery plan is maintained in [GitHub milestones](https://github.com/SHalimoosavi/SYJ-RE-Workstation/milestones). The current focus is a verified static-analysis foundation: compatibility testing, regression tests and accurate installation documentation. APKTool integration, ELF/native inspection, DEX analysis, additional report formats and dynamic analysis are later, separate workstreams. Planned work is not shipped functionality.
 
 ## Roadmap status
 
 | Phase | Scope | Status |
 |---|---|---|
-| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, local reports and report comparison | Implemented in repository; compatibility validation pending |
-| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | In progress; do not call verified until all matrix jobs pass |
+| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, local reports and report comparison | Implemented; regression-checked in compatibility run #84 |
+| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | Passed on Debian 12/13 and Ubuntu 22.04/24.04 amd64 containers in compatibility run [#84](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43550686140); this is not Android/Termux/PRoot validation |
 | Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
 | Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime analysis | Planned; not shipped and outside current static analyzer |
 

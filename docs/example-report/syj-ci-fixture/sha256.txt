@@ -1,0 +1,1 @@
+df27d4f8d03eda18808130a23632d85ea0f5a8733a2ecd5580e8f58a20f51220  syj-ci-fixture.apk
