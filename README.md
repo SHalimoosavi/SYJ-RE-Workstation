@@ -4,11 +4,11 @@
 
 # SYJ-RE-Workstation
 
-Open-source reverse engineering and APK analysis for Android security inspection and static analysis on Debian, Linux and Android through Termux. The workstation uses Bash scripts to collect APK metadata, permissions, manifest structure, archive inventory, signatures and optional decompilation evidence.
+Open-source Bash-based static APK evidence collection for Debian-compatible Linux. A provisional Termux + Debian PRoot setup guide is provided, but device-side compatibility remains unverified.
 
 ## What is SYJ-RE-Workstation?
 
-SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static inspection of Android APK files. It runs on Linux environments, including Debian PRoot launched from Termux, and records package metadata, permissions, manifest information, archive contents, optional signature verification and optional JADX output in local report directories.
+SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static inspection of Android APK files. It targets Debian-compatible Linux and records package metadata, permissions, manifest information, archive contents, optional signature verification and optional JADX output in local report directories. Termux + Debian PRoot instructions are provisional and have not been validated on a physical Android device.
 
 ## At a glance
 
@@ -18,7 +18,7 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 | Type | Open-source Android APK static-analysis workstation |
 | Primary language | Bash |
 | License | MIT |
-| Platforms / environments | Debian and compatible Linux; Debian PRoot on Android through Termux |
+| Platforms / environments | Debian-compatible Linux; provisional Termux + Debian PRoot instructions (device validation unverified) |
 | Status | Early prototype; validation is ongoing |
 | First public release target | v0.1.0 (not yet published) |
 | Requirements | Bash, file, sha256sum, unzip, AAPT; optional apksigner and JADX |

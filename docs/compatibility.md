@@ -17,6 +17,19 @@ The compatibility workflow executes package installation, Debian bootstrap, disp
 
 See the [compatibility workflow and its individual runs](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml). The badge above reflects the workflow's live status; it is not a substitute for inspecting the four matrix jobs.
 
+## Tool versions recorded by CI
+
+The following values are copied from the generated `tool-versions.txt` artifacts produced by completed compatibility matrix jobs. They are observations from those jobs, not minimum-version requirements or promises that future package repositories will provide identical versions.
+
+| Environment | AAPT | apksigner | JADX | Java |
+|---|---|---|---|---|
+| Debian 12 Bookworm | `0.2-debian` | `0.9` | unavailable | `17.0.21` |
+| Debian 13 Trixie | `0.2-debian` | `0.9` | unavailable | `21.0.13` |
+| Ubuntu 22.04 Jammy | `0.2-debian` | `0.9` | unavailable | `11.0.33` |
+| Ubuntu 24.04 Noble | `0.2-debian` | `0.9` | unavailable | `21.0.13.0.3` |
+
+Each job generated a sanitized tool-version record. JADX was unavailable in these fixture jobs, so its version is recorded as `unavailable`. The compatibility workflow page links to current and historical runs and artifacts.
+
 **Boundary:** CI covers GitHub-hosted Debian/Ubuntu amd64 containers only. It does not test a physical Android device, Termux itself, Debian PRoot on Android, ARM/ARM64 devices, or every package mirror and tool version. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
 
 ## Community-reported results
