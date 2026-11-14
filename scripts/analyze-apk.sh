@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 usage() {
-  echo "Usage: $0 /path/to/application.apk"
+  echo "Usage: $0 /path/to/application.apk" >&2
   exit 2
 }
 
@@ -12,7 +12,7 @@ APK=$1
 
 need() {
   command -v "$1" >/dev/null 2>&1 || {
-    echo "WARNING: required tool not found: $1" >&2
+    echo "ERROR: required tool not found: $1" >&2
     return 1
   }
 }
@@ -21,6 +21,19 @@ need file
 need sha256sum
 need unzip
 need aapt
+
+if ! unzip -tqq "$APK" >/dev/null 2>&1; then
+  echo "ERROR: input is not a readable ZIP/APK archive: $APK" >&2
+  exit 1
+fi
+if ! unzip -Z1 "$APK" | grep -qx 'AndroidManifest.xml'; then
+  echo "ERROR: archive does not contain AndroidManifest.xml: $APK" >&2
+  exit 1
+fi
+if ! aapt dump badging "$APK" >/dev/null 2>&1; then
+  echo "ERROR: AAPT could not read APK metadata: $APK" >&2
+  exit 1
+fi
 
 NAME=$(basename "$APK" .apk)
 BASE="${SYJ_RE_HOME:-$HOME/SYJ-RE-Workstation}"
