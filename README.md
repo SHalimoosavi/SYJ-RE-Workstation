@@ -19,7 +19,8 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 | Primary language | Bash |
 | License | MIT |
 | Platforms / environments | Debian and compatible Linux; Debian PRoot on Android through Termux |
-| Status | Early prototype; validation is ongoing |\n| First public release target | v0.1.0 (not yet published) |
+| Status | Early prototype; validation is ongoing |
+| First public release target | v0.1.0 (not yet published) |
 | Requirements | Bash, file, sha256sum, unzip, AAPT; optional apksigner and JADX |
 | Owner | Syed Ali Hasan Moosavi |
 | Organization | SAYANJALI NEXUS PRIVATE LIMITED |
@@ -27,7 +28,8 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 
 <p align="center">
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/SHalimoosavi/SYJ-RE-Workstation"></a>
-  <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml"><img alt="Compatibility workflow status" src="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg"></a>\n  <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/shellcheck.yml"><img alt="Shell checks workflow status" src="https://img.shields.io/github/actions/workflow/status/SHalimoosavi/SYJ-RE-Workstation/shellcheck.yml?label=shell%20checks"></a>
+  <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml"><img alt="Compatibility workflow status" src="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml/badge.svg"></a>
+  <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/shellcheck.yml"><img alt="Shell checks workflow status" src="https://img.shields.io/github/actions/workflow/status/SHalimoosavi/SYJ-RE-Workstation/shellcheck.yml?label=shell%20checks"></a>
   <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/commits/main"><img alt="Latest commit" src="https://img.shields.io/github/last-commit/SHalimoosavi/SYJ-RE-Workstation"></a>
 </p>
 
