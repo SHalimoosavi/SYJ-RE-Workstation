@@ -79,7 +79,7 @@ pass 'summary and tool versions handle spaces and non-ASCII APK paths'
 
 mkdir -p "$TMP/incomplete-report"
 printf "package: name='org.example.empty' versionCode='' versionName=''\n" > "$TMP/incomplete-report/badging.txt"
-"$SUMMARY" "$TMP/incomplete-report"
+bash "$SUMMARY" "$TMP/incomplete-report"
 grep -Fq '| Package | org.example.empty |' "$TMP/incomplete-report/SUMMARY.md" || fail 'summary did not extract package from raw badging'
 for field in 'Version code' 'Version name' 'Minimum SDK' 'Target SDK' 'SHA-256' 'Signature status' 'JADX status'; do
   grep -Fq "| $field | not available |" "$TMP/incomplete-report/SUMMARY.md" || fail "missing raw field was not marked not available: $field"
@@ -90,9 +90,9 @@ mkdir -p "$TMP/signature-skipped" "$TMP/signature-failed" "$TMP/signature-verifi
 printf 'apksigner not installed; signature verification skipped.\n' > "$TMP/signature-skipped/signature.txt"
 printf 'DOES NOT VERIFY\nERROR: signature verification failed\n' > "$TMP/signature-failed/signature.txt"
 printf 'Verifies\n' > "$TMP/signature-verified/signature.txt"
-"$SUMMARY" "$TMP/signature-skipped"
-"$SUMMARY" "$TMP/signature-failed"
-"$SUMMARY" "$TMP/signature-verified"
+bash "$SUMMARY" "$TMP/signature-skipped"
+bash "$SUMMARY" "$TMP/signature-failed"
+bash "$SUMMARY" "$TMP/signature-verified"
 grep -Fq '| Signature status | skipped |' "$TMP/signature-skipped/SUMMARY.md" || fail 'skipped signature was not recorded'
 grep -Fq '| Signature status | failed |' "$TMP/signature-failed/SUMMARY.md" || fail 'failed signature was not recorded'
 grep -Fq '| Signature status | verified |' "$TMP/signature-verified/SUMMARY.md" || fail 'verified signature was not recorded'
