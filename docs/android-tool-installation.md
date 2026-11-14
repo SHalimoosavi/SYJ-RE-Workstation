@@ -1,55 +1,43 @@
 # Android tool installation and compatibility
 
-This guide separates package-index evidence from commands that have actually been installed and tested. The four clean-environment tests requested for Debian 12, Debian 13, Ubuntu 22.04 and Ubuntu 24.04 were **not completed** during this update. Do not interpret package-index presence as a successful installation or runtime test.
+This guide distinguishes distribution package metadata from tests executed by this repository's CI. A package being listed in a distribution index does not prove that it installs or that the analyzer works on that release.
 
-## Package names and repository versions
+## Runtime requirements
 
-Package-index information below was checked against the Debian and Ubuntu package websites during this documentation update. Versions can change with updates, enabled repositories, architecture and mirror state. Run `apt-cache policy` on the target machine before installation.
+The current analyzer requires Bash, `file`, `sha256sum`, `unzip` and AAPT (`aapt`). Signature verification with `apksigner` and DEX decompilation with JADX are optional. APKTool is currently a separately installed/manual utility; no shipped script invokes it.
 
-| Environment | `aapt` | `apksigner` | `apktool` | Install test |
-|---|---|---|---|---|
-| Debian 12 Bookworm | `aapt` 1:10.0.0+r36-10 | `apksigner` 31.0.2-1 | `apktool` 2.7.0+dfsg-6+deb12u1 | Untested |
-| Debian 13 Trixie | `aapt` 1:14~beta1-3 | `apksigner` 35.0.2-1 | `apktool` 2.7.0+dfsg-7 | Untested |
-| Ubuntu 22.04 Jammy | `aapt` 1:10.0.0+r36-3 | `apksigner` 31.0.2-1 | `apktool` 2.5.0+dfsg.1-2build1 | Untested |
-| Ubuntu 24.04 Noble | `aapt` 1:14~beta1-2build3 | `apksigner` 31.0.2-1ubuntu1 | `apktool` 2.7.0+dfsg-7 | Untested |
+JADX **v1.5.6** requires a 64-bit Java runtime **11 or newer** according to the upstream project documentation. Install the distribution's `default-jre-headless` metapackage rather than hard-coding Java 21: it resolves to the default supported runtime for each release.
 
-The listed Ubuntu package versions are package-index references, not proof that your configured mirrors currently expose the same candidates. Enable the Universe component where required. Debian package details: [aapt](https://packages.debian.org/trixie/aapt), [apksigner](https://packages.debian.org/trixie/apksigner), [apktool](https://packages.debian.org/trixie/apktool). Ubuntu package details: [aapt](https://packages.ubuntu.com/aapt), [apksigner](https://packages.ubuntu.com/noble/apksigner), [apktool](https://packages.ubuntu.com/apktool), and the [Jammy package index](https://packages.ubuntu.com/jammy/amd64/allpackages).
+## Exact JRE package per supported release
 
-## Inspect candidates before installing
+The package index dependency metadata identifies these runtime versions:
 
-On Debian and Ubuntu, update package metadata and inspect the actual candidates:
+| Distribution | Install command | Runtime selected by `default-jre-headless` |
+|---|---|---|
+| Debian 12 Bookworm | `sudo apt-get install -y default-jre-headless` | OpenJDK 17 |
+| Debian 13 Trixie | `sudo apt-get install -y default-jre-headless` | OpenJDK 21 |
+| Ubuntu 22.04 Jammy | `sudo apt-get install -y default-jre-headless` | OpenJDK 11 |
+| Ubuntu 24.04 Noble | `sudo apt-get install -y default-jre-headless` | OpenJDK 21 |
+
+Sources: Debian Bookworm and Trixie package records and Ubuntu Jammy and Noble package records for `default-jre-headless`. See [Bookworm](https://packages.debian.org/bookworm/default-jre-headless), [Trixie](https://packages.debian.org/trixie/default-jre-headless), [Jammy](https://packages.ubuntu.com/jammy/default-jre-headless), and [Noble](https://packages.ubuntu.com/noble/default-jre-headless). These records describe the package dependency; the CI matrix below is the source of actual compatibility test status.
+
+To install all required and optional Android tools plus the compatible JRE on any of these releases:
 
 ```bash
 sudo apt-get update
-apt-cache policy aapt apksigner apktool
+apt-cache policy aapt apksigner apktool default-jre-headless
+sudo apt-get install -y aapt apksigner apktool default-jre-headless
+java -version
 ```
 
-If the candidate versions are available from trusted configured repositories, install:
+If `apt-cache policy` shows no candidate, check enabled official repositories and architecture before proceeding. Do not substitute an untrusted package source.
+
+## Install JADX v1.5.6
+
+The upstream JADX release provides the CLI archive. The project documents Java 11+ for 64-bit runtime environments. Use the same archive on all four distributions after installing their release-correct JRE above.
 
 ```bash
-sudo apt-get install -y aapt apksigner apktool
-```
-
-Verify the installed commands and package versions:
-
-```bash
-command -v aapt apksigner apktool
-dpkg-query -W -f='${Package} ${Version}\n' aapt apksigner apktool
-aapt version
-apksigner version
-apktool --version
-```
-
-The analyzer requires `aapt`. `apksigner` is optional for the current analyzer. APKTool is currently a manual/optional tool and is not invoked by any shipped script.
-
-## JADX: use the official upstream release
-
-No reliable Debian or Ubuntu apt package for JADX was confirmed in the package-index research for this update. Do not assume `apt install jadx` is available. The upstream project publishes CLI and GUI archives at [skylot/jadx Releases](https://github.com/skylot/jadx/releases); the upstream README requires a 64-bit Java 11 or later runtime for the standard archive.
-
-Example installation for the upstream v1.5.6 release:
-
-```bash
-sudo apt-get install -y ca-certificates curl unzip openjdk-21-jre-headless
+sudo apt-get install -y ca-certificates curl unzip
 mkdir -p "$HOME/opt/jadx/1.5.6" "$HOME/.cache/jadx"
 cd "$HOME/.cache/jadx"
 curl -fL --proto '=https' --tlsv1.2 -o jadx-1.5.6.zip https://github.com/skylot/jadx/releases/download/v1.5.6/jadx-1.5.6.zip
@@ -57,43 +45,41 @@ unzip -q jadx-1.5.6.zip -d "$HOME/opt/jadx/1.5.6"
 JADX_BIN="$(find "$HOME/opt/jadx/1.5.6" -type f -name jadx -print -quit)"
 test -n "$JADX_BIN"
 export PATH="$(dirname "$JADX_BIN"):$PATH"
-```
-
-The `export` applies to the current shell. Add the containing `bin` directory to your shell startup file if you want it on PATH in future sessions. Verify:
-
-```bash
 jadx --version
 ```
 
-### Integrity verification note
+This download command does not independently authenticate the ZIP asset. The upstream v1.5.6 release does not publish a SHA-256 checksum in its release assets. Do not call the archive checksum-verified. Upstream source tag signature verification is separate from verifying the downloaded release archive.
 
-The upstream v1.5.6 release page shows a verified signed Git tag and commit (GPG key ID `47A4975761262B6A`). The release page does not expose a published SHA-256 checksum or signature for the `jadx-1.5.6.zip` asset. Therefore, a locally computed `sha256sum jadx-1.5.6.zip` is useful for recording the downloaded file but does **not** independently authenticate it. If you have independently obtained and trusted the upstream signing key, you can verify the signed tag separately:
+Upstream references: [JADX releases](https://github.com/skylot/jadx/releases/tag/v1.5.6) and [JADX README](https://github.com/skylot/jadx#readme).
+
+## Compatibility matrix
+
+Status is populated from GitHub Actions runs on the compatibility workflow. Until a completed run exists for a release, its status remains **Untested**.
+
+| Environment | Container image | Package installation | Bootstrap | APK integration | Overall |
+|---|---|---|---|---|---|
+| Debian 12 Bookworm | `debian:12` | Untested | Untested | Untested | Untested |
+| Debian 13 Trixie | `debian:13` | Untested | Untested | Untested | Untested |
+| Ubuntu 22.04 Jammy | `ubuntu:22.04` | Untested | Untested | Untested | Untested |
+| Ubuntu 24.04 Noble | `ubuntu:24.04` | Untested | Untested | Untested | Untested |
+
+A successful workflow job will be reported as Passed only for the steps that actually ran successfully. A failed job will remain Failed until the failure is fixed and a rerun succeeds. Architecture and Termux/Android-device compatibility are not covered by these amd64 container tests.
+
+## Verify installed tools
 
 ```bash
-git clone --filter=blob:none --no-checkout https://github.com/skylot/jadx.git jadx-upstream
-cd jadx-upstream
-git fetch --tags
-git verify-tag v1.5.6
+command -v aapt apksigner apktool java
+dpkg-query -W -f='${Package} ${Version}\\n' aapt apksigner apktool default-jre-headless
+aapt version
+apksigner version
+apktool --version
+java -version
 ```
 
-This authenticates the signed source tag against your local GPG trust configuration; it does not prove the downloaded ZIP asset is byte-for-byte built from that tag. Do not describe the archive itself as checksum-verified unless upstream publishes a matching checksum/signature.
+## Scope and caveats
 
-## Test status for this repository
-
-| Environment | apt-cache policy run here | Package installation run here | Analyzer integration test |
-|---|---|---|---|
-| Debian 12 Bookworm | No | No | No |
-| Debian 13 Trixie | Attempted, package-index update timed out before policy output | No | No |
-| Ubuntu 22.04 Jammy | No | No | No |
-| Ubuntu 24.04 Noble | No | No | No |
-
-The current execution environment did not provide Docker or Podman, and its package-index update timed out. For that reason, this document deliberately marks all four clean-install tests as untested. Package versions above come from distribution package websites, not local apt installation runs.
-
-## Optional tool scope
-
-- **Required:** AAPT (`aapt`) for metadata, permissions and manifest extraction.
-- **Optional:** apksigner (`apksigner`) for APK signature verification.
-- **Optional/manual:** APKTool (`apktool`) for resource and smali decoding; no current project script invokes it.
-- **Optional:** JADX (`jadx`) for DEX-to-Java decompilation; the analyzer records its output and exit status when installed.
-
-The Debian bootstrap intentionally installs base utilities only. Keep Android analysis tools optional and install them explicitly after checking package provenance and target architecture.
+- AAPT is required by `scripts/analyze-apk.sh`.
+- apksigner and JADX are optional integrations.
+- APKTool is not currently called by the analyzer.
+- A successful static collection run is not a malware verdict and does not prove an APK safe.
+- CI container results do not prove compatibility on every CPU architecture, Android device, Termux version or PRoot configuration.
