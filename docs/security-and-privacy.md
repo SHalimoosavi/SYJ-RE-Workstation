@@ -17,6 +17,10 @@ APK files and analysis reports may contain proprietary code, API endpoints, pers
 - Do not install or execute unknown samples on a personal device.
 - Use an isolated test device or emulator for separately authorized dynamic analysis.
 
+## Contact
+
+For project and documentation questions, use the approved project contact address: [shalimoosavi@gmail.com](mailto:shalimoosavi@gmail.com).
+
 ## Limitations
 
 A permission or manifest flag alone is not proof of a vulnerability. Successful signature verification establishes cryptographic consistency against the presented certificate; it does not establish publisher trust. Decompiler errors do not prove APK corruption or malicious behavior. This project does not classify malware or prove that an analyzed application is safe.
