@@ -1,0 +1,4 @@
+APK: syj-ci-fixture.apk
+Report directory: docs/example-report/syj-ci-fixture
+Generated: 2026-11-14T03:06:20+00:00
+Scope: static inspection only
