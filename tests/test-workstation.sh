@@ -58,7 +58,7 @@ for sample_name in "fixture with spaces.apk" "fixture-مرحبا-应用.apk"; do
   sample_path="$TMP/$sample_name"
   cp "$SYJ_TEST_APK" "$sample_path"
   "$ANALYZER" "$sample_path" > "$TMP/path-test.out"
-  report_name=\${sample_name%.apk}
+  report_name=${sample_name%.apk}
   path_report="$SYJ_RE_HOME/reports/$report_name"
   [[ -s "$path_report/SUMMARY.md" ]] || fail "summary missing for APK path: $sample_name"
   [[ -s "$path_report/tool-versions.txt" ]] || fail "tool versions missing for APK path: $sample_name"
@@ -71,7 +71,7 @@ done
 pass "summary and tool versions handle spaces and non-ASCII APK paths without recording paths"
 
 mkdir -p "$TMP/incomplete-report"
-printf "package: name='org.example.empty' versionCode='' versionName=''\\n" > "$TMP/incomplete-report/badging.txt"
+printf "package: name='org.example.empty' versionCode='' versionName=''\n" > "$TMP/incomplete-report/badging.txt"
 bash "$ROOT/scripts/generate-summary.sh" "$TMP/incomplete-report"
 grep -Fq '| Package | org.example.empty |' "$TMP/incomplete-report/SUMMARY.md" || fail "summary did not extract package from raw badging"
 grep -Fq '| Version code | not available |' "$TMP/incomplete-report/SUMMARY.md" || fail "missing version code was inferred"
