@@ -143,6 +143,10 @@ bash scripts/compare-reports.sh /path/to/report-A /path/to/report-B
 
 It compares `badging.txt`, `permissions.txt`, `dex-and-native-libraries.txt` and `signature.txt`. Missing files are reported. The script continues through all four comparisons and suppresses `diff`'s non-zero status; therefore, a zero exit code does not mean the reports are identical.
 
+## Example output
+
+The CI workflow builds an authorized, disposable APK fixture and generates a local report. A checked-in example report is **not available yet**: the first matrix run failed its report assertion, and the corrected test has not yet completed a new matrix run. See [the example-report status](docs/example-report/README.md); no sample output is fabricated.
+
 ## Read the evidence
 
 Start with `REPORT-INFO.txt`, `file.txt` and `sha256.txt`. Review `badging.txt`, `permissions.txt` and `manifest-tree.txt` for package and manifest evidence. Use `archive-files.txt` and `dex-and-native-libraries.txt` for archive inventory. If available, inspect `signature.txt`, `jadx-status.txt` and `jadx.log`.
@@ -320,6 +324,10 @@ The tracked delivery plan is maintained in [GitHub milestones](https://github.co
 | Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | In progress; do not call verified until all matrix jobs pass |
 | Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
 | Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime analysis | Planned; not shipped and outside current static analyzer |
+
+## Example output
+
+The CI workflow builds a disposable APK fixture and generates a local report. A checked-in example report is **not available yet**: the first matrix run failed a test assertion, and the corrected test has not completed a fresh matrix run. See [the example-report status](docs/example-report/README.md). No output is fabricated.
 
 ## License
 
