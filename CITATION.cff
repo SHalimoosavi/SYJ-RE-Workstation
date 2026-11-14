@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "SYJ-RE-Workstation"
-abstract: "A Bash-based open-source workstation scaffold for static inspection of Android APK files on Debian, compatible Linux environments and Debian PRoot launched through Termux. It collects package metadata, permissions, manifest information, archive inventory, optional signature verification and optional JADX output."
+abstract: "A Bash-based open-source workstation scaffold for static inspection of Android APK files. GitHub Actions validates the workflow in GitHub-hosted Debian/Ubuntu amd64 containers; it does not validate physical Android devices, Termux itself or Debian PRoot on Android. The analyzer collects package metadata, permissions, manifest information, archive inventory, optional signature verification and optional JADX output. The Debian bootstrap installs YARA and binutils, but the analyzer does not use YARA or inspect ELF/native binaries; APKTool is not invoked by the analyzer."
 authors:
   - family-names: Moosavi
     given-names: "Syed Ali Hasan"
