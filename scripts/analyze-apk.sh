@@ -93,6 +93,9 @@ Generated: $(date -Is 2>/dev/null || date)
 Scope: static inspection only
 EOF
 
+bash "$(dirname "${BASH_SOURCE[0]}")/write-tool-versions.sh" "$OUT"
+bash "$(dirname "${BASH_SOURCE[0]}")/generate-summary.sh" "$OUT"
+
 echo
 echo "Analysis complete: $OUT"
 echo "Review the evidence; automated output is not a vulnerability verdict."
