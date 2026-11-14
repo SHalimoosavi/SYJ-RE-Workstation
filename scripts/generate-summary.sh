@@ -14,7 +14,7 @@ badging_value() {
   local key=$1 value=''
   local file="$REPORT_DIR/badging.txt"
   if [[ -f "$file" ]]; then
-    value=$(sed -n "1s/.*${key}='\\([^']*\\)'.*/\\1/p" "$file" | head -n 1)
+    value=$(sed -n "1s/.*[[:space:]]${key}='\\([^']*\\)'.*/\\1/p" "$file" | head -n 1)
   fi
   [[ -n "$value" ]] || value='not available'
   printf '%s' "$value"
