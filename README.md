@@ -20,7 +20,7 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 | License | MIT |
 | Platforms / environments | Debian-compatible Linux; provisional Termux + Debian PRoot instructions (device validation unverified) |
 | Status | Early prototype; validation is ongoing |
-| First public release | v0.1.0 (dated 2026-11-14; publication pending) |
+| First public release | v0.1.0 ([published 2026-11-14](https://github.com/SHalimoosavi/SYJ-RE-Workstation/releases/tag/v0.1.0)) |
 | Requirements | Bash, file, sha256sum, unzip, AAPT; optional apksigner and JADX |
 | Owner | Syed Ali Hasan Moosavi |
 | Organization | SAYANJALI NEXUS PRIVATE LIMITED |
