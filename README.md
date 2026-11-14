@@ -31,7 +31,37 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
   <a href="https://github.com/SHalimoosavi/SYJ-RE-Workstation/commits/main"><img alt="Latest commit" src="https://img.shields.io/github/last-commit/SHalimoosavi/SYJ-RE-Workstation"></a>
 </p>
 
-<p align="center"><img src="docs/assets/terminal-demo.svg" alt="Illustrative terminal animation showing repository setup and an APK analysis command" width="100%"></p>
+## Two-minute first run
+
+**Debian / Ubuntu (fresh system):**
+```bash
+sudo apt-get update && sudo apt-get install -y git bash file unzip coreutils aapt android-framework-res
+git clone https://github.com/SHalimoosavi/SYJ-RE-Workstation.git
+cd SYJ-RE-Workstation
+# Build the disposable fixture below, then run: bash scripts/analyze-apk.sh /tmp/syj-ci-fixture.apk
+```
+
+**Android Termux (fresh install):**
+```bash
+pkg update && pkg install -y git proot-distro
+git clone https://github.com/SHalimoosavi/SYJ-RE-Workstation.git
+cd SYJ-RE-Workstation
+proot-distro install debian && proot-distro login debian --bind "$PWD:/mnt/syj-re"
+```
+Inside Debian, install `aapt`, `android-framework-res`, `file`, `unzip` and `coreutils` with `apt-get`, then follow the fixture steps below. CI does not test Termux or PRoot on Android.
+
+> **Scope:** static inspection and evidence collection only. This is not a malware sandbox, malware detector, vulnerability verdict or proof that an APK is safe. Only analyze APKs you own or are authorized to assess.
+
+## Build a safe sample APK
+
+The repository does not redistribute a third-party APK. It includes an original minimal manifest at [docs/sample-fixture/AndroidManifest.xml](docs/sample-fixture/AndroidManifest.xml), following the same fixture approach used by CI. On Debian/Ubuntu, install `aapt` and `android-framework-res`, then run:
+
+```bash
+aapt package -f -M docs/sample-fixture/AndroidManifest.xml -I /usr/share/android-framework-res/framework-res.apk -F /tmp/syj-ci-fixture.apk
+bash scripts/analyze-apk.sh /tmp/syj-ci-fixture.apk
+```
+
+For Debian PRoot, run the same commands from `/mnt/syj-re`. This creates a minimal, unsigned test APK from the repository's own manifest and the distribution's Android framework resources; it is not a real application and has no application code. If your distribution stores `framework-res.apk` elsewhere, locate the file from the installed `android-framework-res` package and adjust only the `-I` path.
 
 ## How to analyze an APK in 5 steps
 
@@ -145,7 +175,24 @@ It compares `badging.txt`, `permissions.txt`, `dex-and-native-libraries.txt` and
 
 ## Example output
 
-A sample report generated from the workflow-built minimal APK fixture is available in [docs/example-report/](docs/example-report/README.md). It records observed AAPT metadata, manifest, archive inventory, hash, unsigned signature result and skipped JADX status.
+The following is copied from the committed CI-generated fixture report (Debian 13 Trixie, amd64). Values are real; the fixture is intentionally unsigned and has no application code. See [the complete report](docs/example-report/) and [fixture provenance](docs/example-report/README.md).
+
+```text
+package: name='org.syj.reworkstation.fixture' versionCode='' versionName=''
+sdkVersion:'21'
+targetSdkVersion:'28'
+
+package: org.syj.reworkstation.fixture
+
+AndroidManifest.xml
+
+SHA-256: df27d4f8d03eda18808130a23632d85ea0f5a8733a2ecd5580e8f58a20f51220
+
+Signature: DOES NOT VERIFY
+ERROR: Missing META-INF/MANIFEST.MF
+
+JADX: jadx not installed; decompilation skipped.
+```
 
 ## JADX archive integrity
 
