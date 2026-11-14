@@ -42,7 +42,7 @@ pass "analyzer reports missing required dependency"
 export SYJ_RE_HOME="$TMP/workstation"
 "$ANALYZER" "$SYJ_TEST_APK" >"$TMP/analyze.out"
 REPORT="$SYJ_RE_HOME/reports/$(basename "$SYJ_TEST_APK" .apk)"
-for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt dex-and-native-libraries.txt signature.txt jadx-status.txt; do
+for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt dex-and-native-libraries.txt signature.txt jadx-status.txt SUMMARY.md tool-versions.txt; do
   [[ -f "$REPORT/$output" ]] || fail "expected report output missing: $output"
 done
 for output in REPORT-INFO.txt file.txt size.txt sha256.txt badging.txt permissions.txt manifest-tree.txt archive-files.txt signature.txt jadx-status.txt; do
@@ -53,6 +53,33 @@ if [[ -n "${SYJ_TEST_REPORT_DIR:-}" ]]; then
   cp -a "$REPORT" "$SYJ_TEST_REPORT_DIR/"
 fi
 pass "analyzer creates expected evidence files"
+
+for sample_name in "fixture with spaces.apk" "fixture-مرحبا-应用.apk"; do
+  sample_path="$TMP/$sample_name"
+  cp "$SYJ_TEST_APK" "$sample_path"
+  "$ANALYZER" "$sample_path" > "$TMP/path-test.out"
+  report_name=\${sample_name%.apk}
+  path_report="$SYJ_RE_HOME/reports/$report_name"
+  [[ -s "$path_report/SUMMARY.md" ]] || fail "summary missing for APK path: $sample_name"
+  [[ -s "$path_report/tool-versions.txt" ]] || fail "tool versions missing for APK path: $sample_name"
+  grep -Fq "org.syj.reworkstation.fixture" "$path_report/SUMMARY.md" || fail "package missing from summary for APK path: $sample_name"
+  if grep -Eq '(/home/|/root/|/data/data/|/storage/emulated/)' "$path_report/tool-versions.txt"; then
+    fail "tool-versions.txt contains a personal or home path"
+  fi
+  awk -F= 'NF != 2 || $1 !~ /^[a-z0-9]+$/ || $2 !~ /^[A-Za-z0-9._+-]+$/ { exit 1 }' "$path_report/tool-versions.txt" || fail "tool-versions.txt contains data other than tool names and version tokens"
+done
+pass "summary and tool versions handle spaces and non-ASCII APK paths without recording paths"
+
+mkdir -p "$TMP/incomplete-report"
+printf "package: name='org.example.empty' versionCode='' versionName=''\\n" > "$TMP/incomplete-report/badging.txt"
+bash "$ROOT/scripts/generate-summary.sh" "$TMP/incomplete-report"
+grep -Fq '| Package | org.example.empty |' "$TMP/incomplete-report/SUMMARY.md" || fail "summary did not extract package from raw badging"
+grep -Fq '| Version code | not available |' "$TMP/incomplete-report/SUMMARY.md" || fail "missing version code was inferred"
+grep -Fq '| Minimum SDK | not available |' "$TMP/incomplete-report/SUMMARY.md" || fail "missing min SDK was inferred"
+grep -Fq '| SHA-256 | not available |' "$TMP/incomplete-report/SUMMARY.md" || fail "missing hash was inferred"
+grep -Fq '| Signature status | not available |' "$TMP/incomplete-report/SUMMARY.md" || fail "missing signature status was inferred"
+grep -Fq '| JADX status | not available |' "$TMP/incomplete-report/SUMMARY.md" || fail "missing JADX status was inferred"
+pass "summary marks absent raw evidence as not available"
 
 mkdir -p "$TMP/report-a" "$TMP/report-b"
 for f in badging.txt permissions.txt dex-and-native-libraries.txt signature.txt; do
