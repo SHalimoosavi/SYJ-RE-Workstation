@@ -37,3 +37,5 @@ The first public release is intended to contain the complete feature set current
 - Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed.
 - This is early-stage static evidence collection, not a malware verdict, vulnerability confirmation or proof that an APK is safe.
 - Release date: 2026-11-14. The tag and GitHub Release remain unpublished pending final publication authorization.
+
+[0.1.0]: https://github.com/SHalimoosavi/SYJ-RE-Workstation/releases/tag/v0.1.0
