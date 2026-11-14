@@ -10,7 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Initial public release
 
-The first public release is intended to contain the complete feature set currently present on `main`:
+The first public release contains the feature set present on `main` at publication:
 
 - Bash-based APK static inspection and raw evidence files: `REPORT-INFO.txt`, `file.txt`, `size.txt`, `sha256.txt`, `badging.txt`, `permissions.txt`, `manifest-tree.txt`, `archive-files.txt`, `dex-and-native-libraries.txt`, `signature.txt` and `jadx-status.txt`.
 - Evidence-only `SUMMARY.md`, generated from raw report files, with missing or empty fields marked `not available`.
