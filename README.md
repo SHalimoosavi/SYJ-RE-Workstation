@@ -166,6 +166,19 @@ A successful run means the scripted collection steps completed; it does not mean
 - Additional report formats and integrated analysis modules.
 - Broader cross-distribution and device validation.
 
+## Compatibility validation
+
+The first completed four-image CI run installed the analysis packages, completed the Debian bootstrap and built the disposable APK fixture on all four releases. The analyzer regression job then failed on all four because the fixture has no DEX/native-library entries and the test incorrectly required that report file to be non-empty. The test assertion has since been corrected to accept an empty inventory file, but that correction has not yet been validated by another completed matrix run. **No release is currently marked compatible or verified.**
+
+| Environment | Package install | Bootstrap | Analyzer tests | Overall |
+|---|---|---|---|---|
+| Debian 12 Bookworm | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+| Debian 13 Trixie | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+| Ubuntu 22.04 Jammy | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+| Ubuntu 24.04 Noble | Passed | Passed | Failed — test assertion on empty DEX inventory | Failed |
+
+[Compatibility workflow run #6](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/runs/43548949633). The corrected test and report-artifact upload still require a fresh completed matrix run.
+
 ## Known limitations
 
 - The repository is an early prototype. Cross-device and cross-distribution validation is incomplete.
