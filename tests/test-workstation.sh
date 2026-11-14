@@ -73,7 +73,7 @@ for sample_name in 'fixture with spaces.apk' 'fixture-مرحبا-应用.apk'; do
   path_report="$SYJ_RE_HOME/reports/$report_name"
   [[ -s "$path_report/SUMMARY.md" ]] || fail "summary missing for APK path: $sample_name"
   [[ -s "$path_report/tool-versions.txt" ]] || fail "tool versions missing for APK path: $sample_name"
-  grep -Fq 'org.syj.reworkstation.fixture' "$path_report/SUMMARY.md" || fail "package missing from summary for APK path: $sample_name"
+  grep -Fq 'org.syj.reworkstation.sample' "$path_report/SUMMARY.md" || fail "package missing from summary for APK path: $sample_name"
 done
 pass 'summary and tool versions handle spaces and non-ASCII APK paths'
 
