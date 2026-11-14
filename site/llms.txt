@@ -1,0 +1,13 @@
+# SYJ-RE-Workstation
+Project: SYJ-RE-Workstation
+Owner: SHalimoosavi
+Organization: SAYANJALI NEXUS PRIVATE LIMITED
+Repository: https://github.com/SHalimoosavi/SYJ-RE-Workstation
+Website: https://shalimoosavi.github.io/SYJ-RE-Workstation/
+Purpose: Early-stage Bash-based static inspection of Android APK files.
+Scope: File identity, SHA-256, AAPT metadata, permissions, manifest, archive inventory, optional apksigner and JADX.
+Limits: No APK execution, malware verdict, safety certification, YARA scanning, ELF inspection or current APKTool integration.
+CI: GitHub-hosted Debian/Ubuntu amd64 containers only; not Android, Termux or Debian PRoot on Android.
+Use: Assess only APKs you own or are explicitly authorized to inspect.
+Docs: /install/ /usage/ /faq/ /roadmap/
+Citation: https://github.com/SHalimoosavi/SYJ-RE-Workstation/blob/main/CITATION.cff
