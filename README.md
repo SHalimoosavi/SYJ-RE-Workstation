@@ -370,7 +370,7 @@ The tracked delivery plan is maintained in [GitHub milestones](https://github.co
 
 | Phase | Scope | Status |
 |---|---|---|
-| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, local reports and report comparison | Implemented; regression-checked in compatibility run #84 |
+| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, raw evidence files, SUMMARY.md, tool-versions.txt and report comparison | Implemented; regression-checked in the compatibility workflow |
 | Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | Passed on Debian 12/13 and Ubuntu 22.04/24.04 amd64 containers in the [compatibility workflow](https://github.com/SHalimoosavi/SYJ-RE-Workstation/actions/workflows/compat.yml); this is not Android/Termux/PRoot validation |
 | Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
 | Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime analysis | Planned; not shipped and outside current static analyzer |
