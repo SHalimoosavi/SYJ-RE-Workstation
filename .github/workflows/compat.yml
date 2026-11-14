@@ -48,17 +48,9 @@ jobs:
           apktool --version
       - name: Run Debian bootstrap
         run: bash scripts/debian-bootstrap.sh
-      - name: Build disposable APK fixture
+      - name: Build documented sample APK fixture
         run: |
-          mkdir -p "$RUNNER_TEMP/apk-fixture"
-          cat > "$RUNNER_TEMP/apk-fixture/AndroidManifest.xml" <<'EOF'
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-              package="org.syj.reworkstation.fixture">
-              <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
-              <application android:label="SYJ CI Fixture" android:hasCode="false" />
-          </manifest>
-          EOF
-          aapt package -f -M "$RUNNER_TEMP/apk-fixture/AndroidManifest.xml" \
+          aapt package -f -M docs/sample-apk/AndroidManifest.xml \
             -I /usr/share/android-framework-res/framework-res.apk \
             -F "$RUNNER_TEMP/syj-ci-fixture.apk"
           test -s "$RUNNER_TEMP/syj-ci-fixture.apk"
