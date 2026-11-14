@@ -153,7 +153,7 @@ The JADX v1.5.6 release ZIP has no upstream SHA-256 checksum published with its 
 
 ## Read the evidence
 
-Start with `REPORT-INFO.txt`, `file.txt` and `sha256.txt`. Review `badging.txt`, `permissions.txt` and `manifest-tree.txt` for package and manifest evidence. Use `archive-files.txt` and `dex-and-native-libraries.txt` for archive inventory. If available, inspect `signature.txt`, `jadx-status.txt` and `jadx.log`.
+Start with `SUMMARY.md` for a concise index generated from the raw report files, then review `REPORT-INFO.txt`, `file.txt` and `sha256.txt`. `tool-versions.txt` records tool names and version tokens only; it does not store executable paths or environment paths. Review `badging.txt`, `permissions.txt` and `manifest-tree.txt` for package and manifest evidence. Use `archive-files.txt` and `dex-and-native-libraries.txt` for archive inventory. If available, inspect `signature.txt`, `jadx-status.txt` and `jadx.log`. Missing summary fields are shown as `not available`; the summary does not infer values.
 
 A successful run means the scripted collection steps completed; it does not mean the APK is safe. A non-zero JADX exit code is recorded separately and does not invalidate the other collected reports.
 
@@ -164,6 +164,8 @@ A successful run means the scripted collection steps completed; it does not mean
 - ZIP archive inventory and DEX/native-library path filtering.
 - Optional apksigner verification and optional JADX invocation.
 - A report comparison helper.
+- A generated `SUMMARY.md` derived only from raw evidence files, with missing values shown as `not available`.
+- A `tool-versions.txt` file containing tool names and version tokens only, without usernames or filesystem paths.
 - Termux and Debian bootstrap scripts.
 - GitHub Actions compatibility matrix and shell checks.
 
