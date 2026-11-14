@@ -9,7 +9,7 @@ apt-get update
 apt-get install -y \
   bash ca-certificates curl wget git python3 python3-venv \
   file unzip zip p7zip-full binutils gdb sqlite3 yara \
-  openjdk-21-jre-headless adb tshark
+  default-jre-headless adb tshark
 echo
 echo "Base Debian packages installed."
 echo "Optional Android tools (aapt, apksigner, apktool, jadx) may require separate trusted installation."
