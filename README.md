@@ -35,7 +35,7 @@ SYJ-RE-Workstation is a Bash-based, open-source workstation scaffold for static 
 
 ## How to analyze an APK in 5 steps
 
-The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The Debian 12/13 and Ubuntu 22.04/24.04 package installation tests remain unverified; see the [tool compatibility matrix](docs/android-tool-installation.md).
+The command blocks in this README are usage examples, not claims that every command was executed in every environment. Replace example APK paths with the actual path to a sample you are authorized to assess. The GitHub Actions compatibility matrix runs in GitHub-hosted Debian and Ubuntu amd64 container images. It does not run on a physical Android device, in Termux itself, or inside Debian PRoot on Android; see the [tool compatibility matrix](docs/android-tool-installation.md).
 
 1. **Install Termux packages and clone the project:**
    ```bash
@@ -73,7 +73,7 @@ sudo bash scripts/debian-bootstrap.sh
 
 The bootstrap script installs base command-line tools. It does not install AAPT, apksigner, APKTool or JADX. AAPT is required; apksigner and JADX are optional for the current analyzer. APKTool is not called by the current scripts.
 
-See [Android tool installation and release compatibility](docs/android-tool-installation.md) for package names, repository package versions and exact installation commands. Package availability is not the same as a successful installation test: the Debian 12, Debian 13, Ubuntu 22.04 and Ubuntu 24.04 install tests remain unverified in this environment.
+See [Android tool installation and release compatibility](docs/android-tool-installation.md) for package names, repository package versions and exact installation commands. The completed GitHub-hosted container CI results are recorded in the compatibility matrix below. These are container-image tests, not tests on Android, Termux or Debian PRoot.
 
 ## Install on Android with Termux
 
@@ -193,7 +193,7 @@ This verifies only these four amd64 container images and the workflow's defined 
 - Static inspection cannot establish that an APK is safe, malicious or exploitable.
 - Debian PRoot is a Linux userspace, not a virtual machine. It does not change the Android CPU architecture or provide a separate kernel, hardware virtualization, cgroups or every Android device interface.
 - CI checks shell syntax and linting; it does not run APK integration tests or validate every platform.
-- The requested clean-container install tests for Debian 12/13 and Ubuntu 22.04/24.04 could not be completed in the current environment.
+- CI coverage is limited to the four named GitHub-hosted amd64 Debian/Ubuntu container images. Real Android Termux and Debian PRoot running on Android are not covered by CI and require separate device-side validation.
 
 ## Frequently asked questions
 
@@ -211,7 +211,7 @@ No Android root access is required for the documented Termux plus Debian PRoot w
 
 ### Can I run it on Debian or Ubuntu?
 
-The scripts target Debian-compatible Linux environments and use Bash plus standard command-line utilities. Package names and versions vary by distribution release and architecture. The documentation lists package-index availability for Debian 12/13 and Ubuntu 22.04/24.04, but clean install tests for those four releases have not been completed here. Treat the matrix as reference, not a compatibility guarantee.
+The scripts target Debian-compatible Linux environments and use Bash plus standard command-line utilities. Package names and versions vary by distribution release and architecture. The GitHub Actions workflow has completed install and analyzer checks in the four named amd64 container images. This does not establish compatibility on a physical Android device, Termux itself, Debian PRoot on Android, or other CPU architectures.
 
 ### Which tools do I need to install?
 
