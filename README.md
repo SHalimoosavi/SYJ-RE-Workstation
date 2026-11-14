@@ -299,6 +299,15 @@ GitHub Discussions are not listed because their availability for this repository
 
 The tracked delivery plan is maintained in [GitHub milestones](https://github.com/SHalimoosavi/SYJ-RE-Workstation/milestones). The current focus is a verified static-analysis foundation: compatibility testing, regression tests and accurate installation documentation. APKTool integration, ELF/native inspection, DEX analysis, additional report formats and dynamic analysis are later, separate workstreams. Planned work is not shipped functionality.
 
+## Roadmap status
+
+| Phase | Scope | Status |
+|---|---|---|
+| Phase 0 — Foundation | Bash analyzer, SHA-256, AAPT metadata/permissions/manifest, ZIP inventory, optional signature/JADX hooks, local reports and report comparison | Implemented in repository; compatibility validation pending |
+| Phase 1 — Verified static foundation | Four-release CI matrix, regression tests, installation documentation and reproducible example report | In progress; do not call verified until all matrix jobs pass |
+| Phase 2 — Static analysis expansion | APKTool integration, ELF/native inspection, dedicated DEX analysis and richer report formats | Planned; not shipped |
+| Phase 3 — Runtime analysis | Separate, controlled dynamic instrumentation and runtime analysis | Planned; not shipped and outside current static analyzer |
+
 ## License
 
 SYJ-RE-Workstation is released under the [MIT License](LICENSE).
