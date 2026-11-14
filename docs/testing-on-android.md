@@ -1,6 +1,6 @@
 # Testing on Android
 
-This is a provisional guide for testing Termux + Debian PRoot on a physical Android device. It does not claim native Termux execution or verified device compatibility. No reproducible community device reports have been accepted yet. Allow extra time if Debian packages need to download.
+This is a provisional guide for testing Termux + Debian PRoot on a physical Android device. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. This does not claim native Termux execution or broad device compatibility. Allow extra time if Debian packages need to download.
 
 ## 1. Prepare Termux
 
@@ -84,4 +84,4 @@ Remove usernames, home-directory paths, private APK names, personal information,
 
 ## What this test does not establish
 
-A passing test on one phone does not establish compatibility on every Android device or architecture. GitHub CI separately covers only the four named GitHub-hosted amd64 Debian/Ubuntu container images. Termux and Debian PRoot on Android remain unverified until reproducible community reports are submitted and reviewed. The project remains early-stage and performs static evidence collection only; it is not a malware detector or proof of APK safety.
+A passing test on one phone does not establish compatibility on every Android device or architecture. GitHub CI separately covers only the four named GitHub-hosted amd64 Debian/Ubuntu container images. Reported working on one Android device (Debian 13 PRoot via Termux, maintainer-reported, single data point); no independent reports yet. The project remains early-stage and performs static evidence collection only; it is not a malware detector or proof of APK safety.
